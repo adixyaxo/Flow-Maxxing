@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profile — TaskFlow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter','sans-serif'] } } } };
+  </script>
+  <style>
+    body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
+    .sidebar { background: #080808; border-right: 1px solid rgba(255,255,255,0.06); }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 8px; font-size: 0.875rem; color: #777; transition: color 0.15s, background 0.15s; text-decoration: none; }
+    .nav-item:hover { color: #fff; background: rgba(255,255,255,0.04); }
+    .nav-item.active { color: #fff; background: rgba(255,255,255,0.06); }
+    .topbar { background: rgba(0,0,0,0.85); border-bottom: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(12px); }
+    .section-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #444; padding: 8px 12px; }
+    .input-field { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.1); color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem; outline: none; transition: border-color 0.15s; width: 100%; }
+    .input-field:focus { border-color: #0070f3; }
+    .input-field::placeholder { color: #444; }
+    .input-field:disabled { opacity: 0.5; cursor: not-allowed; }
+    .section-card { background: #0a0a0a; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; }
+    .section-card-header { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .section-card-body { padding: 20px; }
+    .btn-primary { background: #fff; color: #000; font-weight: 500; padding: 9px 20px; border-radius: 8px; font-size: 0.875rem; transition: background 0.15s; cursor: pointer; }
+    .btn-primary:hover { background: #e8e8e8; }
+    .btn-danger { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); font-weight: 500; padding: 9px 20px; border-radius: 8px; font-size: 0.875rem; transition: background 0.15s; cursor: pointer; }
+    .btn-danger:hover { background: rgba(239,68,68,0.2); }
+    .avatar-xl { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, #0070f3, #00c6ff); display: flex; align-items: center; justify-content: center; font-size: 1.75rem; font-weight: 600; color: #fff; }
+    .avatar-sm { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, #0070f3, #00c6ff); display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600; color: #fff; }
+    .success-msg { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.25); color: #4ade80; padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; }
+    .error-msg { background: rgba(220,38,38,0.1); border: 1px solid rgba(220,38,38,0.3); color: #f87171; padding: 10px 14px; border-radius: 8px; font-size: 0.8rem; }
+    .divider { border-color: rgba(255,255,255,0.06); }
+  </style>
+</head>
+<body class="antialiased">
+
+  <div class="flex h-screen overflow-hidden">
+    <!-- SIDEBAR -->
+    <aside class="sidebar w-56 flex flex-col flex-shrink-0 hidden md:flex">
+      <div class="p-4 border-b border-white/5">
+        <a href="/" class="flex items-center gap-2 font-semibold text-white text-sm">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#0070f3"/><path d="M5 10h10M5 7h6M5 13h8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          TaskFlow
+        </a>
+      </div>
+      <nav class="flex-1 p-3 space-y-1">
+        <a href="/dashboard" class="nav-item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity=".5"/><rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor"/><rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity=".5"/><rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity=".5"/></svg>
+          Overview
+        </a>
+        <a href="/tasks" class="nav-item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Tasks
+        </a>
+        <a href="/notes" class="nav-item">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Notes
+        </a>
+        <div class="pt-4">
+          <p class="section-label">Account</p>
+          <a href="/profile" class="nav-item active">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 13c0-2.2 2.7-4 6-4s6 1.8 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            Profile
+          </a>
+        </div>
+      </nav>
+      <div class="p-3 border-t border-white/5">
+        <button onclick="logout()" class="nav-item w-full text-left text-red-400 hover:text-red-300 hover:bg-red-950/30">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Log out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <header class="topbar h-14 flex items-center justify-between px-6 flex-shrink-0">
+        <h1 class="text-sm font-semibold text-white">Profile</h1>
+        <div class="avatar-sm" id="user-avatar">U</div>
+      </header>
+
+      <main class="flex-1 overflow-y-auto p-6">
+        <div class="max-w-2xl mx-auto space-y-6">
+
+          <!-- PROFILE INFO -->
+          <div class="section-card">
+            <div class="section-card-header flex items-center justify-between">
+              <h2 class="text-sm font-semibold text-white">Profile information</h2>
+            </div>
+            <div class="section-card-body">
+              <div class="flex items-center gap-5 mb-6">
+                <div class="avatar-xl" id="big-avatar">U</div>
+                <div>
+                  <p class="text-sm font-medium text-white" id="display-name">Loading...</p>
+                  <p class="text-xs text-gray-500 mt-1" id="display-email">—</p>
+                  <p class="text-xs text-gray-700 mt-1" id="display-joined">—</p>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs text-gray-500 mb-2 uppercase tracking-wider">First name</label>
+                    <input type="text" id="first-name" class="input-field" placeholder="First name" />
+                  </div>
+                  <div>
+                    <label class="block text-xs text-gray-500 mb-2 uppercase tracking-wider">Last name</label>
+                    <input type="text" id="last-name" class="input-field" placeholder="Last name" />
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-2 uppercase tracking-wider">Email</label>
+                  <input type="email" id="email" class="input-field" placeholder="Email" disabled />
+                  <p class="text-xs text-gray-700 mt-1.5">Email cannot be changed.</p>
+                </div>
+                <div id="profile-msg" class="hidden"></div>
+                <div class="flex justify-end">
+                  <button onclick="saveProfile()" class="btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CHANGE PASSWORD -->
+          <div class="section-card">
+            <div class="section-card-header">
+              <h2 class="text-sm font-semibold text-white">Change password</h2>
+            </div>
+            <div class="section-card-body space-y-4">
+              <div>
+                <label class="block text-xs text-gray-500 mb-2 uppercase tracking-wider">Current password</label>
+                <input type="password" id="current-pw" class="input-field" placeholder="••••••••" />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-500 mb-2 uppercase tracking-wider">New password</label>
+                <input type="password" id="new-pw" class="input-field" placeholder="Min. 8 characters" />
+              </div>
+              <div>
+                <label class="block text-xs text-gray-500 mb-2 uppercase tracking-wider">Confirm new password</label>
+                <input type="password" id="confirm-pw" class="input-field" placeholder="••••••••" />
+              </div>
+              <div id="pw-msg" class="hidden"></div>
+              <div class="flex justify-end">
+                <button onclick="changePassword()" class="btn-primary">Update password</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- DANGER ZONE -->
+          <div class="section-card" style="border-color: rgba(239,68,68,0.15)">
+            <div class="section-card-header" style="border-bottom-color: rgba(239,68,68,0.1)">
+              <h2 class="text-sm font-semibold text-red-400">Danger zone</h2>
+            </div>
+            <div class="section-card-body">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-sm text-white mb-1">Delete account</p>
+                  <p class="text-xs text-gray-500">This permanently deletes your account, tasks, and notes. This action cannot be undone.</p>
+                </div>
+                <button onclick="deleteAccount()" class="btn-danger flex-shrink-0">Delete account</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

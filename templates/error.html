@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Error</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+  <script src="../static/js/script.js"></script>
+<style>
+body{
+    background:#000;
+    color:#fff;
+}
+
+.grid-bg{
+    background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size:48px 48px;
+}
+
+.fade{
+    animation:fade .7s ease-out;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+</style>
+
+</head>
+
+<body class="grid-bg min-h-screen flex items-center justify-center">
+
+<!-- ambient glow -->
+<div class="absolute w-[600px] h-[600px] bg-white/5 rounded-full blur-[160px]
+            top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"></div>
+
+<!-- Error Card -->
+<div class="relative max-w-md w-full px-8 text-center fade">
+
+    <!-- Code -->
+    <div class="text-7xl font-light tracking-tight">
+        {{code}}
+    </div>
+
+    <!-- Message -->
+    <h1 class="mt-6 text-xl font-light">
+        {{title}}
+    </h1>
+
+    <p class="mt-4 text-sm text-neutral-500 leading-relaxed">
+        {{message}}
+    </p>
+
+    <!-- Actions -->
+    <div class="mt-10 flex flex-col gap-3">
+
+        <a href="/"
+           class="w-full py-3 rounded-xl bg-white text-black font-medium
+                  hover:opacity-90 transition active:scale-[0.99]">
+            Go home
+        </a>
+
+        <a href="/docs"
+           class="w-full py-3 rounded-xl border border-white/10 text-white
+                  hover:bg-white/5 transition">
+            View API docs
+        </a>
+
+    </div>
+
+    <!-- Footer hint -->
+    <p class="text-xs text-neutral-600 mt-10">
+        If this persists, check your endpoint or FastAPI route config.
+    </p>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes — TaskFlow</title>
+    <script src="../static/js/script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } };
+    </script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar {
+            background: #080808;
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #777;
+            transition: color 0.15s, background 0.15s;
+            text-decoration: none;
+        }
+
+        .nav-item:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .nav-item.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .topbar {
+            background: rgba(0, 0, 0, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #444;
+            padding: 8px 12px;
+        }
+
+        /* Two-pane layout */
+        .notes-pane {
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            background: #060606;
+            width: 260px;
+            flex-shrink: 0;
+        }
+
+        .editor-pane {
+            flex: 1;
+            background: #000;
+        }
+
+        .note-list-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: background 0.1s;
+        }
+
+        .note-list-item:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .note-list-item.active {
+            background: rgba(0, 112, 243, 0.08);
+            border-left: 2px solid #0070f3;
+            padding-left: 14px;
+        }
+
+        .note-list-item.active:hover {
+            background: rgba(0, 112, 243, 0.1);
+        }
+
+        .editor-title {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 1.375rem;
+            font-weight: 600;
+            width: 100%;
+            padding: 0;
+            letter-spacing: -0.02em;
+            font-family: inherit;
+        }
+
+        .editor-title::placeholder {
+            color: #333;
+        }
+
+        .editor-body {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #999;
+            font-size: 0.9rem;
+            width: 100%;
+            padding: 0;
+            resize: none;
+            min-height: 400px;
+            font-family: inherit;
+            line-height: 1.7;
+        }
+
+        .editor-body::placeholder {
+            color: #333;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            font-weight: 500;
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #e8e8e8;
+        }
+
+        .btn-ghost {
+            color: #555;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+            cursor: pointer;
+        }
+
+        .btn-ghost:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-danger {
+            color: #f87171;
+            font-size: 0.8rem;
+            padding: 6px 10px;
+            border-radius: 6px;
+            transition: color 0.15s, background 0.15s;
+            cursor: pointer;
+        }
+
+        .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .save-indicator {
+            font-size: 0.75rem;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .save-indicator.saved {
+            color: #4ade80;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #fff;
+            padding: 7px 12px;
+            border-radius: 7px;
+            font-size: 0.8rem;
+            outline: none;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: #444;
+        }
+
+        .search-input:focus {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0070f3, #00c6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .empty-pane {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #333;
+            gap: 12px;
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+        <!-- SIDEBAR -->
+        <aside class="sidebar w-56 flex flex-col flex-shrink-0 hidden md:flex">
+            <div class="p-4 border-b border-white/5">
+                <a href="/" class="flex items-center gap-2 font-semibold text-white text-sm">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                        <rect width="20" height="20" rx="4" fill="#0070f3" />
+                        <path d="M5 10h10M5 7h6M5 13h8" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    TaskFlow
+                </a>
+            </div>
+            <nav class="flex-1 p-3 space-y-1">
+                <a href="/dashboard" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <rect x="1" y="1" width="6" height="6" rx="1.5" fill="currentColor" opacity=".5" />
+                        <rect x="9" y="1" width="6" height="6" rx="1.5" fill="currentColor" />
+                        <rect x="1" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity=".5" />
+                        <rect x="9" y="9" width="6" height="6" rx="1.5" fill="currentColor" opacity=".5" />
+                    </svg>
+                    Overview
+                </a>
+                <a href="/tasks" class="nav-item">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.5"
+                            stroke-linecap="round" />
+                    </svg>
+                    Tasks
+                </a>
+                <a href="/notes" class="nav-item active">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.5" />
+                        <path d="M5 6h6M5 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    Notes
+                </a>
+                <div class="pt-4">
+                    <p class="section-label">Account</p>
+                    <a href="/profile" class="nav-item">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.5" />
+                            <path d="M2 13c0-2.2 2.7-4 6-4s6 1.8 6 4" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" />
+                        </svg>
+                        Profile
+                    </a>
+                </div>
+            </nav>
+            <div class="p-3 border-t border-white/5">
+                <button onclick="logout()"
+                    class="nav-item w-full text-left text-red-400 hover:text-red-300 hover:bg-red-950/30">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h3M10 11l3-3-3-3M13 8H6" stroke="currentColor"
+                            stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                    Log out
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <header class="topbar h-14 flex items-center justify-between px-6 flex-shrink-0">
+                <h1 class="text-sm font-semibold text-white">Notes</h1>
+                <div class="flex items-center gap-3">
+                    <span class="save-indicator" id="save-indicator"></span>
+                    <button onclick="newNote()" class="btn-primary flex items-center gap-2">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M6 1v10M1 6h10" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        New note
+                    </button>
+                    <div class="avatar" id="user-avatar">U</div>
+                </div>
+            </header>
+
+            <div class="flex flex-1 overflow-hidden">
+                <!-- NOTES LIST PANE -->
+                <div class="notes-pane flex flex-col overflow-hidden">
+                    <div class="p-3 border-b border-white/5">
+                        <input type="search" id="search-input" placeholder="Search notes..." class="search-input"
+                            oninput="searchNotes()" />
+                    </div>
+                    <div id="note-list" class="flex-1 overflow-y-auto">
+                        <div class="text-center py-10 text-gray-600 text-sm">Loading...</div>
+                    </div>
+                </div>
+
+                <!-- EDITOR PANE -->
+                <div class="editor-pane flex flex-col overflow-hidden">
+                    <div id="editor-empty" class="empty-pane flex-1">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect x="6" y="6" width="28" height="28" rx="4" stroke="#222" stroke-width="2" />
+                            <path d="M13 15h14M13 20h10M13 25h12" stroke="#222" stroke-width="2"
+                                stroke-linecap="round" />
+                        </svg>
+                        <p class="text-sm">Select a note or create a new one</p>
+                        <button onclick="newNote()" class="btn-primary mt-2">New note</button>
+                    </div>
+                    <div id="editor-area" class="flex-1 flex flex-col p-8 overflow-y-auto hidden">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="text-xs text-gray-700" id="note-meta">—</div>
+                            <button onclick="deleteCurrentNote()" class="btn-danger">Delete</button>
+                        </div>
+                        <input type="text" id="note-title-input" class="editor-title mb-4" placeholder="Untitled" />
+                        <textarea id="note-body-input" class="editor-body flex-1"
+                            placeholder="Start writing..."></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

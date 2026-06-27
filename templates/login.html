@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log in — TaskFlow</title>
+    <script src="../static/js/script.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter','sans-serif'] } } } };
+  </script>
+  <style>
+    body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
+    .input-field {
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%; padding: 10px 14px; border-radius: 8px; font-size: 0.875rem;
+      outline: none;
+    }
+    .input-field:focus {
+      border-color: #0070f3;
+      box-shadow: 0 0 0 3px rgba(0,112,243,0.1);
+    }
+    .input-field::placeholder { color: #555; }
+    .btn-primary {
+      background: #fff; color: #000; font-weight: 500;
+      width: 100%; padding: 10px; border-radius: 8px; font-size: 0.875rem;
+      transition: background 0.15s; cursor: pointer;
+    }
+    .btn-primary:hover { background: #e8e8e8; }
+    .border-subtle { border-color: rgba(255,255,255,0.08); }
+    .form-card {
+      background: #0a0a0a;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+    }
+    .hero-glow {
+      position: fixed;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,112,243,0.1) 0%, transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .error-msg {
+      background: rgba(220,38,38,0.1);
+      border: 1px solid rgba(220,38,38,0.3);
+      color: #f87171; padding: 10px 14px; border-radius: 8px; font-size: 0.8rem;
+    }
+    .divider-line {
+      display: flex; align-items: center; gap: 12px; color: #333; font-size: 0.75rem;
+    }
+    .divider-line::before, .divider-line::after {
+      content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.06);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+  <div class="hero-glow"></div>
+
+  <!-- NAV -->
+  <nav class="border-b border-subtle backdrop-blur-md fixed top-0 left-0 right-0 z-50" style="background:rgba(0,0,0,0.7)">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-semibold tracking-tight text-white text-sm">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#0070f3"/><path d="M5 10h10M5 7h6M5 13h8" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        TaskFlow
+      </a>
+      <a href="/signup" class="text-sm text-gray-400 hover:text-white transition-colors">
+        Don't have an account? <span class="text-white">Sign up →</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="flex-1 flex items-center justify-center px-6 pt-20 pb-10 relative z-10">
+    <div class="w-full max-w-sm">
+      <div class="text-center mb-8">
+        <h1 class="text-2xl font-bold tracking-tight" style="letter-spacing:-0.02em">Welcome back</h1>
+        <p class="text-sm text-gray-500 mt-2">Log in to your TaskFlow account</p>
+      </div>
+
+      <!-- Flash messages from backend -->
+      <div id="flash-container" class="mb-4"></div>
+
+      <div class="form-card p-7">
+        <form action="/auth" method="get" id="login-form" class="space-y-5" novalidate>
+          <div>
+            <label class="block text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">Email</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" class="input-field" autocomplete="email" required />
+          </div>
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label class="block text-xs text-gray-400 font-medium uppercase tracking-wider">Password</label>
+              <a href="/forgot-password" class="text-xs text-gray-500 hover:text-white transition-colors">Forgot?</a>
+            </div>
+            <input type="password" id="password" name="password" placeholder="••••••••" class="input-field" autocomplete="current-password" required />
+          </div>
+
+          <div id="login-error" class="hidden error-msg"></div>
+
+          <button type="submit" class="btn-primary" id="submit-btn">
+            Log in
+          </button>
+        </form>
+
+        <div class="divider-line mt-6">or</div>
+
+        <p class="text-center text-sm text-gray-500 mt-4">
+          New to TaskFlow?
+          <a href="/signup" class="text-white hover:underline ml-1">Create an account</a>
+        </p>
+      </div>
+
+      <p class="text-center text-xs text-gray-700 mt-6">
+        By continuing, you agree to TaskFlow's terms. No tracking, no ads.
+      </p>
+    </div>
+  </main>
+</body>
+</html>

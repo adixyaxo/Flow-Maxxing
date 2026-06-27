@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+    <script src="../static/js/script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow — Minimal Task & Notes Manager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            accent: '#0070f3',
+            'accent-hover': '#0060df',
+          },
+          animation: {
+            'fade-up': 'fadeUp 0.6s ease forwards',
+            'glow-pulse': 'glowPulse 3s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            glowPulse: {
+              '0%, 100%': { opacity: '0.4' },
+              '50%': { opacity: '0.7' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(0,112,243,0.15) 0%, transparent 70%);
+      top: -100px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .border-subtle { border-color: rgba(255,255,255,0.08); }
+    .card-hover { transition: border-color 0.2s ease, background 0.2s ease; }
+    .card-hover:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.03); }
+    .btn-primary {
+      background: #fff; color: #000; font-weight: 500;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .btn-primary:hover { background: #e8e8e8; }
+    .btn-secondary {
+      border: 1px solid rgba(255,255,255,0.15); color: #fff;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.04); }
+    .nav-link { color: #888; transition: color 0.15s; }
+    .nav-link:hover { color: #fff; }
+    .feature-num { color: rgba(255,255,255,0.15); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,112,243,0.1); border: 1px solid rgba(0,112,243,0.25);
+      color: #60a5fa; font-size: 0.75rem; padding: 4px 12px; border-radius: 999px;
+    }
+    .badge-dot { width: 6px; height: 6px; background: #0070f3; border-radius: 50%; animation: glowPulse 2s ease-in-out infinite; }
+    .divider { border-color: rgba(255,255,255,0.06); }
+    @keyframes glowPulse { 0%,100%{opacity:.4}50%{opacity:1} }
+    .anim-delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .anim-delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .anim-delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .anim-delay-4 { animation-delay: 0.4s; opacity: 0; }
+  </style>
+</head>
+<body class="antialiased">
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 border-b border-subtle backdrop-blur-md" style="background:rgba(0,0,0,0.7)">
+    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
+      <a href="/" class="flex items-center gap-2 font-semibold tracking-tight text-white">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="20" height="20" rx="4" fill="#0070f3"/>
+          <path d="M5 10h10M5 7h6M5 13h8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        TaskFlow
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#features" class="nav-link text-sm">Features</a>
+        <a href="#how-it-works" class="nav-link text-sm">How it works</a>
+        <a href="/about" class="nav-link text-sm">About</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/login" class="nav-link text-sm hidden md:block">Log in</a>
+        <a href="/register" class="btn-primary text-sm px-4 py-1.5 rounded-md">Get started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20 overflow-hidden">
+    <div class="hero-glow animate-glow-pulse"></div>
+    <div class="relative z-10 max-w-3xl mx-auto">
+      <div class="badge mb-8 animate-fade-up">
+        <span class="badge-dot"></span>
+        Now with smart notes & task linking
+      </div>
+      <h1 class="animate-fade-up anim-delay-1 text-5xl md:text-7xl font-bold tracking-tight leading-none mb-6" style="letter-spacing:-0.03em">
+        Tasks and notes,<br/>finally in sync.
+      </h1>
+      <p class="animate-fade-up anim-delay-2 text-lg text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed">
+        A minimal workspace for developers and thinkers. Capture ideas, track work, and ship without friction.
+      </p>
+      <div class="animate-fade-up anim-delay-3 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="/register" class="btn-primary px-6 py-2.5 rounded-md text-sm w-full sm:w-auto text-center">
+          Start for free
+        </a>
+        <a href="#features" class="btn-secondary px-6 py-2.5 rounded-md text-sm w-full sm:w-auto text-center">
+          See what's inside →
+        </a>
+      </div>
+    </div>
+
+    <!-- Floating terminal preview -->
+    <div class="animate-fade-up anim-delay-4 relative z-10 mt-20 w-full max-w-2xl mx-auto">
+      <div class="border border-subtle rounded-xl overflow-hidden" style="background:#0a0a0a">
+        <div class="flex items-center gap-2 px-4 py-3 border-b border-subtle">
+          <div class="w-2.5 h-2.5 rounded-full bg-red-500 opacity-70"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-yellow-500 opacity-70"></div>
+          <div class="w-2.5 h-2.5 rounded-full bg-green-500 opacity-70"></div>
+          <span class="text-xs text-gray-600 ml-2">dashboard — TaskFlow</span>
+        </div>
+        <div class="p-5 text-left space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-4 h-4 rounded border border-accent flex items-center justify-center flex-shrink-0">
+              <div class="w-2 h-2 bg-accent rounded-sm"></div>
+            </div>
+            <span class="text-sm text-gray-300">Finish HTTP/1.1 server implementation</span>
+            <span class="ml-auto text-xs text-gray-600 border border-subtle px-2 py-0.5 rounded">Today</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-4 h-4 rounded border border-gray-700 flex-shrink-0"></div>
+            <span class="text-sm text-gray-300">Review GSoC proposal draft</span>
+            <span class="ml-auto text-xs bg-blue-900/40 text-blue-400 border border-blue-800/50 px-2 py-0.5 rounded">In progress</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-4 h-4 rounded border border-gray-700 flex-shrink-0"></div>
+            <span class="text-sm text-gray-400 line-through">Set up GitHub Actions workflow</span>
+            <span class="ml-auto text-xs text-green-500">Done</span>
+          </div>
+          <hr class="divider my-2" />
+          <div class="text-xs text-gray-600">📝 3 notes linked · 2 tasks due this week</div>
+        </div>
+      </div>
+      <!-- glow under card -->
+      <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-12 blur-3xl" style="background:rgba(0,112,243,0.2)"></div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="py-32 px-6 border-t border-subtle">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-20">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-4">What you get</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight" style="letter-spacing:-0.02em">Built for clarity</h2>
+        <p class="text-gray-400 mt-4 max-w-md mx-auto">No bloat. Every feature earns its place.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-gray-900/50">
+        <!-- Feature 1 -->
+        <div class="card-hover border border-subtle rounded-none p-8 bg-black">
+          <span class="feature-num">01</span>
+          <div class="w-10 h-10 flex items-center justify-center border border-subtle rounded-lg mt-4 mb-5">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="3" width="14" height="2" rx="1" fill="#0070f3"/><rect x="2" y="8" width="10" height="2" rx="1" fill="white" opacity=".5"/><rect x="2" y="13" width="12" height="2" rx="1" fill="white" opacity=".5"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Task management</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">Create, prioritize, and track tasks with deadlines. Filter by status, tag, or date — all without leaving the keyboard.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="card-hover border border-subtle rounded-none p-8 bg-black md:border-l-0">
+          <span class="feature-num">02</span>
+          <div class="w-10 h-10 flex items-center justify-center border border-subtle rounded-lg mt-4 mb-5">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="2" width="14" height="14" rx="2" stroke="#0070f3" stroke-width="1.5"/><path d="M5 7h8M5 10h5" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Smart notes</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">Write and link notes to any task. Plain text, fast. No markdown editor bloat — just focused writing.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="card-hover border border-subtle rounded-none p-8 bg-black md:border-l-0">
+          <span class="feature-num">03</span>
+          <div class="w-10 h-10 flex items-center justify-center border border-subtle rounded-lg mt-4 mb-5">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="7" stroke="#0070f3" stroke-width="1.5"/><path d="M9 5v4l3 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3 class="font-semibold text-white mb-2">Auth & security</h3>
+          <p class="text-sm text-gray-400 leading-relaxed">JWT-secured sessions with refresh. Your data is yours. Private by default, no tracking, no ads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="py-32 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-20">
+        <p class="text-xs uppercase tracking-widest text-gray-500 mb-4">How it works</p>
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight" style="letter-spacing:-0.02em">Zero to focused in 30 seconds</h2>
+      </div>
+      <div class="space-y-0">
+        <div class="flex gap-8 py-10 border-t divider">
+          <div class="text-xs text-gray-600 font-mono pt-1 w-6 flex-shrink-0">01</div>
+          <div>
+            <h3 class="font-semibold text-white mb-2">Create your account</h3>
+            <p class="text-sm text-gray-400 leading-relaxed max-w-md">Sign up with an email. No OAuth, no social logins — just your credentials, hashed and secured. Takes 15 seconds.</p>
+          </div>
+        </div>
+        <div class="flex gap-8 py-10 border-t divider">
+          <div class="text-xs text-gray-600 font-mono pt-1 w-6 flex-shrink-0">02</div>
+          <div>
+            <h3 class="font-semibold text-white mb-2">Add your first task</h3>
+            <p class="text-sm text-gray-400 leading-relaxed max-w-md">Hit the + button or use the quick-add bar. Set a title, optional deadline, optional priority. Done in under 10 seconds.</p>
+          </div>
+        </div>
+        <div class="flex gap-8 py-10 border-t divider">
+          <div class="text-xs text-gray-600 font-mono pt-1 w-6 flex-shrink-0">03</div>
+          <div>
+            <h3 class="font-semibold text-white mb-2">Link notes to tasks</h3>
+            <p class="text-sm text-gray-400 leading-relaxed max-w-md">Every note can live standalone or be attached to a task. Write your context next to your work — never in a separate app.</p>
+          </div>
+        </div>
+        <div class="flex gap-8 py-10 border-t divider">
+          <div class="text-xs text-gray-600 font-mono pt-1 w-6 flex-shrink-0">04</div>
+          <div>
+            <h3 class="font-semibold text-white mb-2">Ship and repeat</h3>
+            <p class="text-sm text-gray-400 leading-relaxed max-w-md">Mark tasks done, archive notes, and stay clean. TaskFlow gets out of your way so you can focus on the actual work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-32 px-6 border-t border-subtle">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-6" style="letter-spacing:-0.02em">Start building clarity.</h2>
+      <p class="text-gray-400 mb-10 leading-relaxed">It's free. It's minimal. It's yours.</p>
+      <a href="/register" class="btn-primary inline-block px-8 py-3 rounded-md text-sm">
+        Create your account →
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-subtle py-12 px-6">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+      <a href="/" class="flex items-center gap-2 font-semibold text-white text-sm">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="20" height="20" rx="4" fill="#0070f3"/>
+          <path d="M5 10h10M5 7h6M5 13h8" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        TaskFlow
+      </a>
+      <div class="flex flex-wrap gap-6 text-sm text-gray-500">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <a href="/about" class="hover:text-white transition-colors">About</a>
+        <a href="/login" class="hover:text-white transition-colors">Log in</a>
+        <a href="/register" class="hover:text-white transition-colors">Sign up</a>
+      </div>
+      <p class="text-xs text-gray-700">© 2025 TaskFlow. Minimal by design.</p>
+    </div>
+  </footer>
+
+  <script src="/static/js/main.js"></script>
+</body>
+</html>

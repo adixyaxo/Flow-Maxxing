@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up — TaskFlow</title>
+    <script src="../static/js/script.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'sans-serif'] } } } };
+    </script>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-field {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: border-color 0.15s, box-shadow 0.15s;
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: #0070f3;
+            box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #555;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #000;
+            font-weight: 500;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #e8e8e8;
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .border-subtle {
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-card {
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+        }
+
+        .hero-glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 112, 243, 0.1) 0%, transparent 70%);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .error-msg {
+            background: rgba(220, 38, 38, 0.1);
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            color: #f87171;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+
+        .success-msg {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #4ade80;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+        }
+
+        .divider-line {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #333;
+            font-size: 0.75rem;
+        }
+
+        .divider-line::before,
+        .divider-line::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .strength-bar {
+            height: 3px;
+            border-radius: 999px;
+            transition: width 0.3s, background 0.3s;
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+    <div class="hero-glow"></div>
+
+    <!-- NAV -->
+    <nav class="border-b border-subtle backdrop-blur-md fixed top-0 left-0 right-0 z-50"
+        style="background:rgba(0,0,0,0.7)">
+        <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-14">
+            <a href="/" class="flex items-center gap-2 font-semibold tracking-tight text-white text-sm">
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                    <rect width="20" height="20" rx="4" fill="#0070f3" />
+                    <path d="M5 10h10M5 7h6M5 13h8" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                </svg>
+                TaskFlow
+            </a>
+            <a href="/login" class="text-sm text-gray-400 hover:text-white transition-colors">
+                Already have an account? <span class="text-white">Log in →</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="flex-1 flex items-center justify-center px-6 pt-20 pb-10 relative z-10">
+        <div class="w-full max-w-sm">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold tracking-tight" style="letter-spacing:-0.02em">Create your account</h1>
+                <p class="text-sm text-gray-500 mt-2">Free forever. No credit card.</p>
+            </div>
+
+            <div class="form-card p-7">
+                <form id="register-form" class="space-y-5" action="/register" method="post" novalidate>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">First
+                                name</label>
+                            <input type="text" id="first_name" name="first_name" placeholder="Ada" class="input-field"
+                                autocomplete="given-name" required />
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">Last
+                                name</label>
+                            <input type="text" id="last_name" name="last_name" placeholder="Lovelace"
+                                class="input-field" autocomplete="family-name" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">Email</label>
+                        <input type="email" id="email" name="email" placeholder="you@example.com" class="input-field"
+                            autocomplete="email" required />
+                    </div>
+
+                    <div>
+                        <label
+                            class="block text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" placeholder="Min. 8 characters"
+                                class="input-field pr-10" autocomplete="new-password" required />
+                            <button type="button" id="toggle-pw"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors">
+                                <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <!-- Password strength -->
+                        <div class="mt-2 flex gap-1">
+                            <div class="flex-1 bg-gray-800 rounded-full h-0.5 overflow-hidden">
+                                <div id="strength-bar" class="strength-bar bg-red-500" style="width:0%"></div>
+                            </div>
+                        </div>
+                        <p id="strength-text" class="text-xs text-gray-600 mt-1"></p>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs text-gray-400 mb-2 font-medium uppercase tracking-wider">Confirm
+                            password</label>
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••"
+                            class="input-field" autocomplete="new-password" required />
+                    </div>
+
+                    <div id="register-msg" class="hidden"></div>
+
+                    <button type="submit" id="submit-btn" class="btn-primary">
+                        Create account
+                    </button>
+                </form>
+
+                <p class="text-center text-sm text-gray-500 mt-5">
+                    Already registered?
+                    <a href="/login" class="text-white hover:underline ml-1">Log in</a>
+                </p>
+            </div>
+
+            <p class="text-center text-xs text-gray-700 mt-6 leading-relaxed">
+                By creating an account, you agree to our terms of service.<br />No tracking, no ads, no nonsense.
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Password visibility toggle
+        const pwInput = document.getElementById('password');
+        document.getElementById('toggle-pw').addEventListener('click', () => {
+            pwInput.type = pwInput.type === 'password' ? 'text' : 'password';
+        });
+
+        // Password strength meter
+        pwInput.addEventListener('input', () => {
+            const val = pwInput.value;
+            const bar = document.getElementById('strength-bar');
+            const txt = document.getElementById('strength-text');
+            let score = 0;
+            if (val.length >= 8) score++;
+            if (/[A-Z]/.test(val)) score++;
+            if (/[0-9]/.test(val)) score++;
+            if (/[^a-zA-Z0-9]/.test(val)) score++;
+            const widths = ['0%', '25%', '50%', '75%', '100%'];
+            const colors = ['#ef4444', '#ef4444', '#f97316', '#eab308', '#22c55e'];
+            const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+            bar.style.width = widths[score];
+            bar.style.background = colors[score];
+            txt.textContent = val.length ? labels[score] : '';
+            txt.style.color = colors[score];
+        });
+    </script>
+</body>
+
+</html>
