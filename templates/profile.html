@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile — TaskFlow</title>
+  <title>Profile — Flow Maxxing</title>
   <script src="/static/js/script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/static/css/style.css" />
@@ -184,7 +184,7 @@
             <rect width="20" height="20" rx="4" fill="#2ED2E5" />
             <path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="2" stroke-linecap="round" />
           </svg>
-          TaskFlow
+          Flow Maxxing
         </a>
       </div>
       <nav class="flex-1 px-4 space-y-2">
@@ -204,7 +204,7 @@
             <path d="M12 2v20" />
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
           </svg>
-          Tasks
+          Main Quests
         </a>
         <a href="/notes" class="nav-item">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -212,10 +212,10 @@
             <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
             <polyline points="14 2 14 8 20 8" />
           </svg>
-          Notes
+          Brain Dumps
         </a>
         <div class="pt-8">
-          <p class="mono-tag text-gray-500 mb-3 px-3">[ SYSTEM ]</p>
+          <p class="mono-tag text-gray-300 mb-3 px-3">[ SYSTEM ]</p>
           <a href="/profile" class="nav-item active">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -237,7 +237,7 @@
       </nav>
       <div class="p-4 border-t border-white/5">
         <button onclick="logout()"
-          class="nav-item w-full text-left text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-colors">
+          class="nav-item w-full text-left text-gray-300 hover:text-red-400 hover:bg-red-500/10 transition-colors">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -254,14 +254,14 @@
       <header class="topbar h-16 flex items-center justify-between px-8 flex-shrink-0 relative z-20">
         <div class="flex items-center gap-3">
           <button id="nav-toggle"
-            class="md:hidden text-gray-400 hover:text-white focus:outline-none flex items-center justify-center">
+            class="md:hidden text-gray-300 hover:text-white focus:outline-none flex items-center justify-center">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>
             </svg>
           </button>
-          <h1 class="text-sm font-semibold mono-tag tracking-widest text-gray-300">USER PROFILE</h1>
+          <h1 class="text-lg font-semibold mono-tag tracking-widest text-gray-300">AURA PROFILE</h1>
         </div>
         <div class="avatar-sm" id="user-avatar">U</div>
       </header>
@@ -314,7 +314,7 @@
           <!-- PROFILE INFO -->
           <div class="section-card">
             <div class="section-card-header flex items-center justify-between">
-              <h2 class="text-xl font-bold text-white tracking-tight">Identity Settings</h2>
+              <h2 class="text-xl font-bold text-white tracking-tight">Aura Settings</h2>
             </div>
             <div class="section-card-body">
               <div class="flex items-center gap-6 mb-10 pb-8 border-b border-white/5">
@@ -322,8 +322,8 @@
                 <div>
                   <p class="text-2xl font-bold text-white mb-2" id="display-name">Loading...</p>
                   <div class="flex items-center gap-3">
-                    <p class="mono-tag text-gray-500 bg-white/5 px-2 py-1 rounded-md" id="display-email">—</p>
-                    <p class="mono-tag text-gray-600" id="display-joined">—</p>
+                    <p class="mono-tag text-gray-300 bg-white/5 px-2 py-1 rounded-md" id="display-email">—</p>
+                    <p class="mono-tag text-gray-500" id="display-joined">—</p>
                   </div>
                 </div>
               </div>
@@ -331,23 +331,23 @@
               <div class="space-y-6">
                 <div class="grid grid-cols-2 gap-5">
                   <div>
-                    <label class="block text-[10px] text-gray-400 mb-2 mono-tag">FIRST NAME</label>
+                    <label class="block text-[10px] text-gray-300 mb-2 mono-tag">FIRST NAME</label>
                     <input type="text" id="first-name" class="input-field" placeholder="{{first_name}}" />
                   </div>
                   <div>
-                    <label class="block text-[10px] text-gray-400 mb-2 mono-tag">LAST NAME</label>
+                    <label class="block text-[10px] text-gray-300 mb-2 mono-tag">LAST NAME</label>
                     <input type="text" id="last-name" class="input-field" placeholder="Lovelace" />
                   </div>
                 </div>
                 <div>
-                  <label class="block text-[10px] text-gray-400 mb-2 mono-tag">EMAIL ADDRESS</label>
+                  <label class="block text-[10px] text-gray-300 mb-2 mono-tag">EMAIL ADDRESS</label>
                   <input type="email" id="email" class="input-field" placeholder="you@domain.com" disabled />
-                  <p class="text-xs text-gray-600 mt-2 mono-tag">[ EMAIL CANNOT BE CHANGED ]</p>
+                  <p class="text-lg text-gray-500 mt-2 mono-tag">[ EMAIL CANNOT BE CHANGED ]</p>
                 </div>
                 <div id="profile-msg" class="hidden"></div>
                 <div class="flex justify-end pt-4">
                   <button onclick="saveProfile()"
-                    class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-sm">SAVE CHANGES</button>
+                    class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-lg">SAVE CHANGES</button>
                 </div>
               </div>
             </div>
@@ -360,23 +360,23 @@
             </div>
             <div class="section-card-body space-y-6">
               <div>
-                <label class="block text-[10px] text-gray-400 mb-2 mono-tag">CURRENT PASSWORD</label>
+                <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CURRENT PASSWORD</label>
                 <input type="password" id="current-pw" class="input-field" placeholder="••••••••" />
               </div>
               <div class="grid grid-cols-2 gap-5">
                 <div>
-                  <label class="block text-[10px] text-gray-400 mb-2 mono-tag">NEW PASSWORD</label>
+                  <label class="block text-[10px] text-gray-300 mb-2 mono-tag">NEW PASSWORD</label>
                   <input type="password" id="new-pw" class="input-field" placeholder="Min. 8 characters" />
                 </div>
                 <div>
-                  <label class="block text-[10px] text-gray-400 mb-2 mono-tag">CONFIRM NEW PASSWORD</label>
+                  <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CONFIRM NEW PASSWORD</label>
                   <input type="password" id="confirm-pw" class="input-field" placeholder="••••••••" />
                 </div>
               </div>
               <div id="pw-msg" class="hidden"></div>
               <div class="flex justify-end pt-4">
                 <button onclick="changePassword()"
-                  class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-sm">UPDATE PASSWORD</button>
+                  class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-lg">UPDATE PASSWORD</button>
               </div>
             </div>
           </div>
@@ -397,13 +397,12 @@
             <div class="section-card-body">
               <div class="flex items-center justify-between gap-6">
                 <div>
-                  <p class="text-base font-bold text-white mb-2">Delete Workspace</p>
-                  <p class="text-sm text-gray-500 leading-relaxed max-w-md">This permanently destroys your account and
-                    obliterates all associated tasks and knowledge base documents. This cannot be undone.</p>
+                  <p class="text-lg font-bold text-white mb-2">Rage Quit</p>
+                  <p class="text-lg text-gray-300 leading-relaxed max-w-md">This permanently destroys your account and
+                    obliterates all your main quests and lore. You will be cooked. This cannot be undone.</p>
                 </div>
                 <button onclick="deleteAccount()"
-                  class="btn-effortel btn-pill bg-red-500/10 text-red-400 font-bold px-8 py-3 text-sm border border-red-500/20 hover:bg-red-500 hover:text-black flex-shrink-0">DESTROY
-                  ACCOUNT</button>
+                  class="btn-effortel btn-pill bg-red-500/10 text-red-400 font-bold px-8 py-3 text-lg border border-red-500/20 hover:bg-red-500 hover:text-black flex-shrink-0">RAGE QUIT</button>
               </div>
             </div>
           </div>

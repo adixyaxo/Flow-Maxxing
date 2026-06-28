@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Notes — TaskFlow</title>
+  <title>Brain Dumps — Flow Maxxing</title>
   <script src="/static/js/script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/static/css/style.css" />
@@ -150,7 +150,7 @@
             <rect width="20" height="20" rx="4" fill="#2ED2E5" />
             <path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="2" stroke-linecap="round" />
           </svg>
-          TaskFlow
+          Flow Maxxing
         </a>
       </div>
 
@@ -171,7 +171,7 @@
             <path d="M12 2v20" />
             <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
           </svg>
-          Tasks
+          Main Quests
         </a>
         <a href="/notes" class="nav-item active">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -179,11 +179,11 @@
             <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
             <polyline points="14 2 14 8 20 8" />
           </svg>
-          Notes
+          Brain Dumps
         </a>
 
         <div class="pt-8">
-          <p class="mono-tag text-gray-500 mb-3 px-3">[ SYSTEM ]</p>
+          <p class="mono-tag text-gray-300 mb-3 px-3">[ SYSTEM ]</p>
           <a href="/profile" class="nav-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
               stroke-linecap="round" stroke-linejoin="round">
@@ -206,7 +206,7 @@
 
       <div class="p-4 border-t border-white/5">
         <button onclick="logout()"
-          class="nav-item w-full text-left text-gray-500 hover:text-red-400 hover:bg-red-500/10 transition-colors">
+          class="nav-item w-full text-left text-gray-300 hover:text-red-400 hover:bg-red-500/10 transition-colors">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
             stroke-linecap="round" stroke-linejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
@@ -223,15 +223,15 @@
       <!-- TOPBAR -->
       <header class="topbar h-16 flex items-center justify-between px-8 flex-shrink-0 relative z-20">
         <div class="flex items-center gap-3">
-          <button id="nav-toggle" class="md:hidden text-gray-400 hover:text-white focus:outline-none flex items-center justify-center">
+          <button id="nav-toggle" class="md:hidden text-gray-300 hover:text-white focus:outline-none flex items-center justify-center">
             <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
           </button>
           <div class="hidden md:block w-2 h-2 rounded-full bg-effortel-accent animate-pulse"></div>
-          <h1 class="text-sm font-semibold mono-tag tracking-widest text-gray-300">KNOWLEDGE BASE</h1>
+          <h1 class="text-lg font-semibold mono-tag tracking-widest text-gray-300">BRAIN DUMPS</h1>
         </div>
         <div class="flex items-center gap-4">
           <div class="flex items-center gap-3 bg-white/5 pl-3 pr-1 py-1 rounded-full border border-white/5">
-            <span class="text-sm font-medium text-gray-300 hidden md:block" id="user-name">Aditya</span>
+            <span class="text-lg font-medium text-gray-300 hidden md:block" id="user-name">Aditya</span>
             <div class="avatar" id="user-avatar">AD</div>
           </div>
         </div>
@@ -240,8 +240,8 @@
       <!-- MOBILE MENU -->
       <div id="mobile-menu" class="hidden md:hidden bg-effortel-dark-bg border-b border-white/5 absolute top-16 left-0 right-0 z-50 flex flex-col p-4 shadow-2xl">
         <a href="/dashboard" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg> Overview</a>
-        <a href="/tasks" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Tasks</a>
-        <a href="/notes" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> Notes</a>
+        <a href="/tasks" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Main Quests</a>
+        <a href="/notes" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> Brain Dumps</a>
         <div class="h-px bg-white/5 my-2"></div>
         <a href="/profile" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Profile</a>
         <a href="/settings" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg> Settings</a>
@@ -259,23 +259,23 @@
 
           <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
             <div>
-              <h2 class="text-4xl font-bold text-white mb-2">Notes & Docs</h2>
-              <p class="text-gray-400">Your decentralized thought repository.</p>
+              <h2 class="text-4xl font-bold text-white mb-2">Brain Dumps</h2>
+              <p class="text-gray-300">Your brain dump is suspiciously clean.</p>
             </div>
 
             <div class="flex items-center gap-4">
               <div class="relative">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none"
+                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" fill="none"
                   stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
                 <input type="text" placeholder="Search notes..."
-                  class="bg-black/30 border border-white/10 rounded-full py-2 pl-9 pr-4 text-sm text-white focus:outline-none focus:border-effortel-accent transition-colors w-64" />
+                  class="bg-black/30 border border-white/10 rounded-full py-2 pl-9 pr-4 text-lg text-white focus:outline-none focus:border-effortel-accent transition-colors w-64" />
               </div>
 
               <button
-                class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-sm flex items-center gap-2 max-w-fit shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all">
+                class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-lg flex items-center gap-2 max-w-fit shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round">
                   <line x1="12" y1="5" x2="12" y2="19" />
@@ -290,95 +290,90 @@
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
             <!-- Note Card 1 -->
-            <div class="note-card cursor-pointer group">
+            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
               <div class="flex items-center justify-between mb-6">
                 <span
-                  class="mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 px-2 py-1 rounded">DESIGN</span>
-                <span class="text-xs text-gray-500 font-mono">Oct 24</span>
+                  class="mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 px-2 py-1 rounded">LORE</span>
+                <span class="text-lg text-gray-300 font-mono">Oct 24</span>
               </div>
-              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Effortel
-                UI Kit Architecture</h4>
+              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Corporate Fan Fiction</h4>
               <div class="note-content-preview flex-1">
-                <p class="text-sm text-gray-400 leading-relaxed">
-                  Structuring the bento grid system for the new dashboard. Need to ensure glassmorphism borders are
-                  consistently 1px with white/5 opacity.
-                  The cyan accent (#2ED2E5) should only be used for hover states and active indicators to maintain the
-                  dark minimalist vibe.
+                <p class="text-lg text-gray-300 leading-relaxed">
+                  Me pretending to know what the Q3 revenue metrics mean during the all-hands. Very demure, very mindful. 
+                  The cyan accent (#2ED2E5) should only be used for hover states because I said so.
                 </p>
               </div>
-            </div>
+            </a>
 
             <!-- Note Card 2 -->
-            <div class="note-card cursor-pointer group">
+            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
               <div class="flex items-center justify-between mb-6">
-                <span class="mono-tag text-[10px] text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded">MEETING</span>
-                <span class="text-xs text-gray-500 font-mono">Oct 22</span>
+                <span class="mono-tag text-[10px] text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded">PANIC</span>
+                <span class="text-lg text-gray-300 font-mono">Oct 22</span>
               </div>
-              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Sync with
-                Backend Team</h4>
+              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Academic Jump Scares</h4>
               <div class="note-content-preview flex-1">
-                <p class="text-sm text-gray-400 leading-relaxed font-mono">
-                  > Discussed payload structure<br>
-                  > priority field maps: 0(low) 1(med) 2(high)<br>
-                  > Add rate limiting to /tasks endpoint<br>
+                <p class="text-lg text-gray-300 leading-relaxed font-mono">
+                  > Discussed syllabus structure<br>
+                  > priority field maps: 0(not reading) 1(skimming) 2(crying)<br>
+                  > Add rate limiting to my tears<br>
                   <br>
-                  Next steps: I need to write the tests for the new API routes.
+                  Next steps: I need to write the essay that is due in 3 hours.
                 </p>
               </div>
-            </div>
+            </a>
 
             <!-- Note Card 3 -->
-            <div class="note-card cursor-pointer group">
+            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
               <div class="flex items-center justify-between mb-6">
-                <span class="mono-tag text-[10px] text-pink-400 bg-pink-400/10 px-2 py-1 rounded">IDEA</span>
-                <span class="text-xs text-gray-500 font-mono">Oct 20</span>
+                <span class="mono-tag text-[10px] text-pink-400 bg-pink-400/10 px-2 py-1 rounded">YAP</span>
+                <span class="text-lg text-gray-300 font-mono">Oct 20</span>
               </div>
               <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">
-                Interactive Hover States</h4>
+                Random Shower Thoughts</h4>
               <div class="note-content-preview flex-1">
-                <p class="text-sm text-gray-400 leading-relaxed">
-                  Maybe we can add subtle radial gradients on hover for the stat cards to give them more depth, similar
-                  to the Effortel hero section.
+                <p class="text-lg text-gray-300 leading-relaxed">
+                  If you really think about it, sleep is just a free trial of death but with ads (dreams).
                   Using CSS variables for mouse X/Y could make the glow follow the cursor dynamically.
                 </p>
               </div>
-            </div>
+            </a>
 
             <!-- Note Card 4 -->
-            <div class="note-card cursor-pointer group">
+            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
               <div class="flex items-center justify-between mb-6">
                 <span class="mono-tag text-[10px] text-green-400 bg-green-400/10 px-2 py-1 rounded">SNIPPET</span>
-                <span class="text-xs text-gray-500 font-mono">Oct 18</span>
+                <span class="text-lg text-gray-300 font-mono">Oct 18</span>
               </div>
               <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Auth
                 Middleware Fix</h4>
               <div class="note-content-preview flex-1">
                 <div class="bg-black/50 p-3 rounded-lg border border-white/5 overflow-hidden">
-                  <pre class="text-xs text-gray-400 font-mono"><code>const auth = (req, res, next) => {
+                  <pre class="text-lg text-gray-300 font-mono"><code>const auth = (req, res, next) => {
   const token = req.header('x-auth');
   if(!token) return res.status(401);
   // ...
 }</code></pre>
                 </div>
               </div>
-            </div>
+            </a>
 
             <!-- Note Card 5 -->
-            <div class="note-card cursor-pointer group">
+            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
               <div class="flex items-center justify-between mb-6">
                 <span class="mono-tag text-[10px] text-purple-400 bg-purple-400/10 px-2 py-1 rounded">PLANNING</span>
-                <span class="text-xs text-gray-500 font-mono">Oct 15</span>
+                <span class="text-lg text-gray-300 font-mono">Oct 15</span>
               </div>
               <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Q4 OKRs
               </h4>
               <div class="note-content-preview flex-1">
-                <p class="text-sm text-gray-400 leading-relaxed">
-                  1. Launch V2 of TaskFlow with new aesthetic.<br>
+                <p class="text-lg text-gray-300 leading-relaxed">
+                  1. Launch V2 of Flow Maxxing with new aesthetic.<br>
                   2. Hit 10k monthly active users.<br>
                   3. Reduce latency on notes query by 50%.
                 </p>
               </div>
-            </div>
+            </a>
 
           </div>
 

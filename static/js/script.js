@@ -153,7 +153,7 @@ document.addEventListener('keydown', (e) => {
 window.saveProfile = function() {
   const msg = document.getElementById('profile-msg');
   if (msg) {
-    msg.textContent = '[ SYSTEM: Profile information updated successfully. ]';
+    msg.textContent = '[ SYSTEM: Aura gained. Profile updated successfully. ]';
     msg.className = 'success-msg mt-4 block';
     setTimeout(() => { msg.classList.add('hidden'); }, 3000);
   }
@@ -162,7 +162,7 @@ window.saveProfile = function() {
 window.changePassword = function() {
   const msg = document.getElementById('pw-msg');
   if (msg) {
-    msg.textContent = '[ SYSTEM: Password updated securely. ]';
+    msg.textContent = '[ SYSTEM: Locked in. Password updated securely. ]';
     msg.className = 'success-msg mt-4 block';
     setTimeout(() => { msg.classList.add('hidden'); }, 3000);
   }

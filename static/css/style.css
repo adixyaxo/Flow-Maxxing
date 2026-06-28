@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  --effortel-dark-bg: #0F1317;
-  --effortel-dark-surface: #1B2026;
-  --effortel-light-bg: #D1DCE2;
-  --effortel-light-surface: #A9BAC4;
-  --effortel-accent: #2ED2E5;
-  --effortel-accent-hover: #1BB8C8;
+  --effortel-dark-bg: #050505;
+  --effortel-dark-surface: #0a0a0a;
+  --effortel-light-bg: #111;
+  --effortel-light-surface: #151515;
+  --effortel-accent: #7C3AED;
+  --effortel-accent-hover: #6D28D9;
+  --accent-cyan: #06B6D4;
+  --accent-green: #22C55E;
+  --accent-orange: #F97316;
 }
 
 body {

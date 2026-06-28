@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign up — TaskFlow</title>
+  <title>Sign up — Flow Maxxing</title>
   <script src="/static/js/script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/static/css/style.css" />
@@ -34,11 +34,11 @@
 
   <!-- NAV -->
   <nav class="fixed top-0 left-0 right-0 z-50 glass-panel border-b-0 px-6 py-4 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2 font-bold text-white text-sm">
+    <a href="/" class="flex items-center gap-2 font-bold text-white text-lg">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#2ED2E5"/><path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="1.5" stroke-linecap="round"/></svg>
-      TaskFlow
+      Flow Maxxing
     </a>
-    <a href="/login" class="mono-tag text-gray-400 hover:text-white transition-colors flex items-center gap-1">
+    <a href="/login" class="mono-tag text-gray-300 hover:text-white transition-colors flex items-center gap-1">
       LOG IN <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
     </a>
   </nav>
@@ -51,33 +51,33 @@
         <div class="w-16 h-16 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto mb-6">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
         </div>
-        <h1 class="text-3xl font-bold tracking-tight mb-2">Create Account</h1>
-        <p class="text-sm text-gray-400 mono-tag">[ FREE FOREVER ]</p>
+        <h1 class="text-3xl font-bold tracking-tight mb-2">Ready to gain some aura today?</h1>
+        <p class="text-lg text-gray-300 mono-tag">[ NO CAP ]</p>
       </div>
 
       <div class="glass-panel p-8 rounded-3xl shadow-2xl">
         <form id="register-form" class="space-y-5" action="/register" method="post">
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="block text-[10px] text-gray-400 mb-2 mono-tag">FIRST NAME</label>
-              <input type="text" id="first_name" name="first_name" placeholder="Ada" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all required" autocomplete="given-name" required />
+              <label class="block text-[10px] text-gray-300 mb-2 mono-tag">FIRST NAME</label>
+              <input type="text" id="first_name" name="first_name" placeholder="Ada" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-lg outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all required" autocomplete="given-name" required />
             </div>
             <div>
-              <label class="block text-[10px] text-gray-400 mb-2 mono-tag">LAST NAME</label>
-              <input type="text" id="last_name" name="last_name" placeholder="Lovelace" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="family-name" />
+              <label class="block text-[10px] text-gray-300 mb-2 mono-tag">LAST NAME</label>
+              <input type="text" id="last_name" name="last_name" placeholder="Lovelace" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-lg outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="family-name" />
             </div>
           </div>
 
           <div>
-            <label class="block text-[10px] text-gray-400 mb-2 mono-tag">EMAIL ADDRESS</label>
-            <input type="email" id="email" name="email" placeholder="you@domain.com" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="email" required />
+            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">EMAIL ADDRESS</label>
+            <input type="email" id="email" name="email" placeholder="you@domain.com" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-lg outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="email" required />
           </div>
 
           <div>
-            <label class="block text-[10px] text-gray-400 mb-2 mono-tag">PASSWORD</label>
+            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">PASSWORD</label>
             <div class="relative">
-              <input type="password" id="password" name="password" placeholder="Min. 8 characters" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 pr-10 text-sm outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="new-password" required />
-              <button type="button" id="toggle-pw" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors">
+              <input type="password" id="password" name="password" placeholder="Min. 8 characters" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 pr-10 text-lg outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="new-password" required />
+              <button type="button" id="toggle-pw" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 hover:text-white transition-colors">
                 <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
               </button>
             </div>
@@ -88,18 +88,18 @@
           </div>
 
           <div>
-            <label class="block text-[10px] text-gray-400 mb-2 mono-tag">CONFIRM PASSWORD</label>
-            <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-sm outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="new-password" required />
+            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CONFIRM PASSWORD</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-lg outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="new-password" required />
           </div>
 
-          <div id="register-msg" class="hidden text-xs p-3 rounded-xl"></div>
+          <div id="register-msg" class="hidden text-lg p-3 rounded-xl"></div>
 
-          <button type="submit" id="submit-btn" class="btn-effortel btn-pill bg-white text-black font-bold text-sm w-full py-4 mt-4">
-            INITIALIZE WORKSPACE
+          <button type="submit" id="submit-btn" class="btn-effortel btn-pill bg-white text-black font-bold text-lg w-full py-4 mt-4">
+            GENERATE AURA
           </button>
         </form>
 
-        <p class="text-center text-xs text-gray-500 mt-8 leading-relaxed px-4">
+        <p class="text-center text-lg text-gray-300 mt-8 leading-relaxed px-4">
           By signing up, you agree to our <a href="#" class="text-white hover:underline">Terms</a>. <br/>No tracking, strictly secure.
         </p>
       </div>
