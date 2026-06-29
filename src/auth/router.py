@@ -9,11 +9,11 @@ from bson import ObjectId
 from src.config.settings import templates
 from src.auth.schemas import USER_LOGIN,USER_REGISTER
 from src.auth.service import handle_login, handle_signup
-from fastapi import Query
+from fastapi import Query, Form
 from pydantic import BaseModel
 from typing import Annotated
-from fastapi import Form
-
+from fastapi.responses import RedirectResponse
+from src.auth.jwt import verify_token
 
 router = APIRouter()
 
@@ -27,15 +27,17 @@ async def login_url(request:Request):
 
 @router.get("/signup", response_class=HTMLResponse)
 async def signup_url(request: Request):
-    return templates.TemplateResponse(
+  if (user := await verify_token(request)) is not None:
+    return RedirectResponse("/dashboard")
+  return templates.TemplateResponse(
         name="signup.html",
         request=request,
         context={}
     )
 
 @router.get("/auth", response_class=HTMLResponse)
-async def login_url(user : Annotated[USER_LOGIN,Query()],request:Request):
-  return handle_login(user,request)
+async def auth_url(user : Annotated[USER_LOGIN,Query()],request:Request):
+  return await handle_login(user,request)
 
 
 
@@ -54,6 +56,6 @@ async def register_url(
         email=email,
         password=password,
     )
-    return handle_signup(user, request)
+    return await handle_signup(user, request)
 
 

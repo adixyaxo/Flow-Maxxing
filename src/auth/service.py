@@ -1,16 +1,31 @@
 from src.auth.schemas import USER_LOGIN,USER_REGISTER
 from src.config.database import conn
 from src.config.settings import templates
+from src.config.environment import JWT_EXP_TIME
 from fastapi import Request
 from pymongo.errors import DuplicateKeyError
 from src.auth.password import hash_password
 from fastapi.responses import RedirectResponse
 import bcrypt
+from src.auth.jwt import verify_token,generate_paylaod,store_token
+from datetime import datetime
 
-def handle_login(user: USER_LOGIN, request: Request):
+
+async def handle_login(user: USER_LOGIN, request: Request):
   db_call = conn.users.find_one({
       "email": user.email
   })
+
+  if db_call is None:
+    return templates.TemplateResponse(
+        "error.html",
+        {
+            "request": request,
+            "code": 911,
+            "title": "Wrong Credentials",
+            "message": "Invalid email or password."
+        }
+    )
 
   try:
     if not bcrypt.checkpw((user.password).encode('utf-8'),(str(db_call.get("password"))).encode('utf-8')):
@@ -24,12 +39,19 @@ def handle_login(user: USER_LOGIN, request: Request):
             }
         )
     else:
-        return templates.TemplateResponse(
-            name="dashboard.html",
-            request=request,
-            context={}
+        token = store_token(generate_paylaod(str(db_call.get("_id")),user.email,"USER"))
+        response = RedirectResponse(url="/dashboard")
+        response.set_cookie(
+          key="access_token",
+          value=token,
+          httponly=True,
+          secure=True,      # Use HTTPS
+          samesite="Lax",
+          max_age=JWT_EXP_TIME        # 15 minutes
         )
+        return response
   except Exception as e:
+        print(e)
         return templates.TemplateResponse(
             name="error.html",
             request=request,
@@ -41,7 +63,7 @@ def handle_login(user: USER_LOGIN, request: Request):
         )
 
 
-def handle_signup(user:USER_REGISTER,request:Request):
+async def handle_signup(user:USER_REGISTER,request:Request):
   data = {
     "first_name":user.first_name,
     "last_name":user.last_name,
@@ -61,5 +83,5 @@ def handle_signup(user:USER_REGISTER,request:Request):
         "message":"Damn! man like Damn! there is already an account here with this email try with something else man"
       }
     )
-  response = RedirectResponse(url="/dashbaord",status_code=201)
+  response = RedirectResponse(url="/dashboard",status_code=303)
   return response

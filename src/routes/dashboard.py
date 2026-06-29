@@ -7,12 +7,13 @@ from pymongo import MongoClient
 from pathlib import Path
 from bson import ObjectId
 from src.config.settings import templates
-
+from fastapi import Depends
+from src.auth.jwt import verify_token
 router = APIRouter()
 
 
 @router.get("/dashboard", response_class=HTMLResponse)
-async def dashboard_url(request: Request):
+async def dashboard_url(request: Request,current_user = Depends(verify_token)):
     return templates.TemplateResponse(
         name="dashboard.html",
         request=request,

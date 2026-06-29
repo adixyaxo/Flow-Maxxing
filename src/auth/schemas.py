@@ -1,4 +1,4 @@
-from pydantic import BaseModel , EmailStr
+from pydantic import BaseModel
 
 class USER_LOGIN(BaseModel):
     email: str
@@ -9,3 +9,13 @@ class USER_REGISTER(BaseModel):
     last_name: str
     email: str
     password: str
+
+class jwt_info(BaseModel):
+    _id:str
+    email:str
+    role:str
+    exp:str
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
