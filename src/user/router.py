@@ -20,11 +20,9 @@ async def profile_url(
     current_user=Depends(verify_token)
 ):
     return templates.TemplateResponse(
-        "profile.html",
-        {
-            "request": request,
-            "user": current_user
-        }
+        name="profile.html",
+        request=request,
+        context={"user":current_user}
     )
 
 
