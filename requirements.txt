@@ -3,3 +3,6 @@ pymongo
 pydantic
 pyjwt
 bcrypt
+dotenv
+pathlib
+bson
