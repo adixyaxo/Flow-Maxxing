@@ -1,97 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log in — Flow Maxxing</title>
+  <title>Log in — TaskMaxxing</title>
   <script src="/static/js/script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { 
-            sans: ['Inter', 'sans-serif'],
-            mono: ['Space Mono', 'monospace']
-          },
-          colors: {
-            'effortel-dark-bg': '#0F1317',
-            'effortel-dark-surface': '#1B2026',
-            'effortel-light-bg': '#D1DCE2',
-            'effortel-light-surface': '#A9BAC4',
-            'effortel-accent': '#2ED2E5',
-            'effortel-accent-hover': '#1BB8C8',
-          },
-        },
-      },
-    };
-  </script>
-</head>
-<body class="antialiased min-h-screen flex flex-col bg-effortel-dark-bg text-white selection:bg-effortel-accent selection:text-black">
-  <!-- Glowing blob for background -->
-  <div class="fixed w-[600px] h-[600px] bg-effortel-accent/10 rounded-full blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
 
+    .page-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(3rem, 10vw, 6rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .page-subtitle {
+      font-size: 1.25rem;
+      color: #888888;
+      max-width: 600px;
+    }
+
+    .form-label {
+      display: block;
+      font-family: 'Anton', sans-serif;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    .input-field-brutal {
+      width: 100%;
+      background: transparent;
+      border: 1px solid #333;
+      color: #ffffff;
+      padding: 16px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .input-field-brutal:focus {
+      outline: none;
+      border-color: #FF3B00;
+      background: rgba(255, 59, 0, 0.02);
+    }
+
+    .input-field-brutal::placeholder {
+      color: #444;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #FF3B00;
+      color: #000000;
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: #ffffff;
+    }
+
+    .glass-panel {
+      border: 1px solid #222;
+      padding: 40px;
+      background: #000000;
+    }
+
+    .navbar {
+      border-bottom: 1px solid #222;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-link {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.25rem;
+      color: #888888;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+    }
+  </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col selection:bg-[#FF3B00] selection:text-black">
   <!-- NAV -->
-  <nav class="fixed top-0 left-0 right-0 z-50 glass-panel border-b-0 px-6 py-4 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2 font-bold text-white text-lg">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" rx="4" fill="#2ED2E5"/><path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="1.5" stroke-linecap="round"/></svg>
-      Flow Maxxing
-    </a>
-    <a href="/signup" class="mono-tag text-gray-300 hover:text-white transition-colors flex items-center gap-1">
-      SIGN UP <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
-    </a>
+  <nav class="navbar">
+    <a href="/" class="nav-brand">TASKMAXXING</a>
+    <a href="/signup" class="nav-link">SIGN UP</a>
   </nav>
 
   <!-- MAIN -->
-  <main class="flex-1 flex items-center justify-center px-6 pt-20 pb-10 relative z-10">
-    <div class="w-full max-w-sm anim-float" style="animation-duration: 8s;">
-      
-      <div class="text-center mb-10">
-        <div class="w-16 h-16 rounded-3xl bg-effortel-accent/10 border border-effortel-accent/20 flex items-center justify-center mx-auto mb-6">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--effortel-accent)" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/></svg>
-        </div>
-        <h1 class="text-3xl font-bold tracking-tight mb-2">Welcome back. Your unfinished tasks missed you.</h1>
-        <p class="text-lg text-gray-300 mono-tag">[ LOCK IN ]</p>
+  <main class="flex-1 flex items-center justify-center px-6 py-20 relative z-10">
+    <div class="w-full max-w-md">
+
+      <div class="text-center mb-12">
+        <h1 class="page-title">LOG IN</h1>
+        <p class="page-subtitle mx-auto">Welcome back. Your backlog missed you.</p>
       </div>
 
       <!-- Flash messages from backend -->
       <div id="flash-container" class="mb-4"></div>
 
-      <div class="glass-panel p-8 rounded-3xl shadow-2xl">
-        <form action="/auth" method="get" id="login-form" class="space-y-6" novalidate>
+      <div class="glass-panel">
+        <form action="/auth" method="get" id="login-form" class="space-y-8" novalidate>
           <div>
-            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">EMAIL ADDRESS</label>
-            <input type="email" id="email" name="email" placeholder="hello@effortel.com" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-lg outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="email" required />
+            <label class="form-label">EMAIL ADDRESS</label>
+            <input type="email" id="email" name="email" placeholder="hello@example.com" class="input-field-brutal" autocomplete="email" required />
           </div>
           <div>
             <div class="flex items-center justify-between mb-2">
-              <label class="block text-[10px] text-gray-300 mono-tag">PASSWORD</label>
-              <a href="/forgot-password" class="text-lg text-effortel-accent hover:text-white transition-colors">Forgot?</a>
+              <label class="form-label mb-0">PASSWORD</label>
+              <a href="/forgot-password" class="text-sm font-bold text-[#FF3B00] uppercase hover:text-white transition-colors">Forgot?</a>
             </div>
-            <input type="password" id="password" name="password" placeholder="••••••••" class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-lg outline-none focus:border-effortel-accent/50 focus:bg-white/5 transition-all" autocomplete="current-password" required />
+            <input type="password" id="password" name="password" placeholder="••••••••" class="input-field-brutal" autocomplete="current-password" required />
           </div>
 
-          <div id="login-error" class="hidden bg-red-500/10 border border-red-500/20 text-red-400 text-lg p-3 rounded-xl"></div>
+          <div id="login-error" class="hidden bg-red-900/20 border border-red-500 text-red-500 font-bold uppercase p-4"></div>
 
-          <button type="submit" class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold text-lg w-full py-4 mt-2" id="submit-btn">
-            GAIN AURA
+          <button type="submit" class="btn-primary" id="submit-btn">
+            LOCK IN
           </button>
         </form>
 
-        <div class="flex items-center gap-4 my-8">
-          <div class="h-px bg-white/10 flex-1"></div>
-          <span class="mono-tag text-[10px] text-gray-300">OR</span>
-          <div class="h-px bg-white/10 flex-1"></div>
+        <div class="mt-12 text-center">
+          <p class="text-gray-500 font-bold uppercase tracking-widest text-sm">
+            New to TaskMaxxing?
+            <a href="/signup" class="text-white hover:text-[#FF3B00] transition-colors ml-2">Create account</a>
+          </p>
         </div>
-
-        <p class="text-center text-lg text-gray-300">
-          New to Flow Maxxing?
-          <a href="/signup" class="text-white hover:text-effortel-accent font-medium ml-1 transition-colors">Create account</a>
-        </p>
       </div>
-      
+
     </div>
   </main>
 </body>
+
 </html>

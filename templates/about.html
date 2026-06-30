@@ -1,310 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About — Flow Maxxing</title>
   <script src="/static/js/script.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Lore — TaskMaxxing</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['Space Mono', 'monospace']
-          },
-          colors: {
-            'effortel-dark-bg': '#0F1317',
-            'effortel-dark-surface': '#1B2026',
-            'effortel-light-bg': '#D1DCE2',
-            'effortel-light-surface': '#A9BAC4',
-            'effortel-accent': '#2ED2E5',
-            'effortel-accent-hover': '#1BB8C8',
-          },
-        },
-      },
-    };
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .hero-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(4rem, 12vw, 10rem);
+      line-height: 0.85;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 0.9;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 40px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #FF3B00;
+      color: #000000;
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      padding: 20px 40px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      background: #ffffff;
+    }
+
+    .navbar {
+      border-bottom: 1px solid #222;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(10px);
+      z-index: 50;
+    }
+
+    .nav-brand {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-link {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.25rem;
+      color: #888888;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+    }
+
+    .feature-card {
+      border: 1px solid #222;
+      padding: 48px;
+      background: transparent;
+    }
+
+    .footer-section {
+      border-top: 1px solid #222;
+      padding: 64px 32px;
+    }
+  </style>
 </head>
 
-<body class="antialiased bg-effortel-dark-bg text-white selection:bg-effortel-accent selection:text-black">
+<body class="antialiased selection:bg-[#FF3B00] selection:text-black">
 
-  <!-- FLOATING NAV (Effortel Style) -->
-  <nav class="floating-nav glass-panel hidden md:flex">
-    <a href="/" class="flex items-center gap-2 font-semibold tracking-tight text-white mr-6">
-      <svg width="24" height="24" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="20" height="20" rx="6" fill="#2ED2E5" />
-        <path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="2" stroke-linecap="round" />
-      </svg>
-      <span class="tracking-tight text-lg">Flow Maxxing</span>
-    </a>
-    <div class="nav-links flex items-center gap-6 mr-6">
-      <a href="/#features" class="text-lg font-medium text-gray-300 hover:text-white transition-colors">Features</a>
-      <a href="/about" class="text-lg font-medium text-white transition-colors">About</a>
+  <!-- NAV -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">TASKMAXXING</a>
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/#features" class="nav-link">CAPABILITIES</a>
+      <a href="/about" class="nav-link text-white">THE LORE</a>
     </div>
-    <div class="flex items-center gap-3">
-      <a href="/login" class="text-lg font-medium text-white hover:text-effortel-accent transition-colors">Log in</a>
-      <a href=""
-        class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-semibold text-lg px-6 py-2.5">Get
-        Started</a>
+    <div class="flex items-center gap-4">
+      <a href="/login" class="nav-link hidden md:block">LOG IN</a>
+      <a href="/signup" class="btn-primary" style="padding: 12px 24px; font-size: 1.25rem;">START COOKING</a>
     </div>
-  </nav>
-
-  <!-- Mobile Nav (Top) -->
-  <nav class="md:hidden fixed top-0 left-0 right-0 z-50 glass-panel px-6 py-4 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2 font-bold text-white">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-        <rect width="20" height="20" rx="4" fill="#2ED2E5" />
-        <path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="1.5" stroke-linecap="round" />
-      </svg>
-      Flow Maxxing
-    </a>
-    <a href="/signup"
-      class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-semibold text-lg px-4 py-2">Get
-      Started</a>
   </nav>
 
   <!-- HERO -->
-  <section class="relative pt-48 pb-24 px-6 text-center overflow-hidden">
-    <div
-      class="absolute w-[800px] h-[800px] bg-effortel-accent/5 rounded-full blur-[150px] top-[-300px] left-1/2 -translate-x-1/2 pointer-events-none">
-    </div>
-    <div class="relative z-10 max-w-4xl mx-auto anim-float" style="animation-duration: 9s;">
-      <div
-        class="mono-tag text-effortel-accent mb-6 inline-block bg-effortel-accent/10 border border-effortel-accent/20 px-4 py-1.5 rounded-full">
-        [ OUR LORE ]
-      </div>
-      <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-[1.1]">
-        Built on the belief that<br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">clarity is a feature.</span>
-      </h1>
-      <p class="text-xl text-gray-300 leading-relaxed font-light max-w-2xl mx-auto">
-        Flow Maxxing started as a personal frustration: every productivity app was mid. We built the one we wanted —
-        fast, minimal, and completely unhinged.
+  <section class="min-h-screen flex flex-col justify-center px-6 pt-20 pb-20 border-b border-[#222]">
+    <div class="max-w-6xl mx-auto w-full">
+      <div class="inline-block border border-[#FF3B00] text-[#FF3B00] font-bold uppercase tracking-widest text-sm px-4 py-1 mb-8">THE LORE</div>
+      <h1 class="hero-title">WHY THIS<br>EXISTS.</h1>
+      <p class="text-2xl text-gray-400 max-w-3xl leading-relaxed mt-10">
+        TaskMaxxing started as a personal frustration. Every productivity app felt like a corporate spreadsheet or a minimalist puzzle you needed a PhD to solve. 
       </p>
     </div>
   </section>
 
-  <!-- STATS (Bento) -->
-  <section class="py-16 px-6">
-    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <div class="bento-card p-10 group bg-black/40">
-        <div class="text-5xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">0</div>
-        <div class="mono-tag text-gray-300 mt-4">ADS. NO CAP.</div>
-      </div>
-      <div class="bento-card p-10 group bg-black/40">
-        <div class="text-5xl font-bold text-blue-400 mb-2 group-hover:scale-110 transition-transform">7</div>
-        <div class="mono-tag text-gray-300 mt-4">PAGES OF AURA.</div>
-      </div>
-      <div class="bento-card p-10 group bg-black/40">
-        <div class="text-5xl font-bold text-effortel-accent mb-2 group-hover:scale-110 transition-transform">∞</div>
-        <div class="mono-tag text-gray-300 mt-4">QUESTS SUPPORTED</div>
-      </div>
-      <div class="bento-card p-10 group bg-black/40">
-        <div class="text-5xl font-bold text-white mb-2 group-hover:scale-110 transition-transform">100%</div>
-        <div class="mono-tag text-gray-300 mt-4">NOT STEALING UR DATA</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VALUES -->
-  <section class="py-32 px-6 bg-[#0a0d10] border-t border-white/5">
+  <!-- FOUNDER STORY -->
+  <section class="py-32 px-6">
     <div class="max-w-4xl mx-auto">
-      <p class="mono-tag text-effortel-accent mb-16 text-center">[ HOW WE VIBE ]</p>
-
-      <div class="space-y-6">
-        <div class="bento-card p-10 flex gap-8 items-start hover:-translate-y-1 transition-transform">
-          <div class="text-2xl font-bold text-gray-500 font-mono flex-shrink-0">01</div>
-          <div>
-            <h3 class="text-2xl font-bold text-white mb-4">Minimal by intention, not by accident</h3>
-            <p class="text-gray-300 text-lg leading-relaxed">Every UI element in Flow Maxxing is there because it earns
-              its place. We remove features rather than add them by default. The space around your tasks is not empty —
-              it's thinking room.</p>
+      <div class="flex flex-col md:flex-row gap-16 items-start">
+        <div class="w-full md:w-1/3">
+          <div class="aspect-square bg-[#111] border border-[#222] flex items-center justify-center mb-6">
+            <span class="font-display text-8xl text-white">AD</span>
+          </div>
+          <h3 class="font-display text-4xl uppercase mb-2">Aditya Dagar</h3>
+          <p class="text-[#FF3B00] font-bold uppercase tracking-widest text-sm">Founder & Developer</p>
+          <div class="mt-6 space-y-4">
+            <a href="https://github.com/adixyaxo" class="block text-gray-400 hover:text-white transition-colors border-b border-[#222] pb-2 uppercase tracking-wide">GitHub</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors border-b border-[#222] pb-2 uppercase tracking-wide">Twitter</a>
           </div>
         </div>
-
-        <div class="bento-card p-10 flex gap-8 items-start hover:-translate-y-1 transition-transform">
-          <div class="text-2xl font-bold text-gray-500 font-mono flex-shrink-0">02</div>
-          <div>
-            <h3 class="text-2xl font-bold text-white mb-4">Speed is a feature</h3>
-            <p class="text-gray-300 text-lg leading-relaxed">A task manager that loads slow is already failing you. Flow
-              Maxxing is pure HTML, CSS, and lightweight JS. No frameworks, no multi-second hydration, no spinners where
-              there shouldn't be any.</p>
-          </div>
-        </div>
-
-        <div class="bento-card p-10 flex gap-8 items-start hover:-translate-y-1 transition-transform">
-          <div class="text-2xl font-bold text-gray-500 font-mono flex-shrink-0">03</div>
-          <div>
-            <h3 class="text-2xl font-bold text-white mb-4">Your data belongs to you</h3>
-            <p class="text-gray-300 text-lg leading-relaxed">No analytics scripts, no advertising SDKs, no selling your
-              usage patterns. JWT auth keeps sessions secure. Your notes and tasks live on servers you point to, not
-              ours.</p>
-          </div>
-        </div>
-
-        <div class="bento-card p-10 flex gap-8 items-start hover:-translate-y-1 transition-transform">
-          <div class="text-2xl font-bold text-gray-500 font-mono flex-shrink-0">04</div>
-          <div>
-            <h3 class="text-2xl font-bold text-white mb-4">Context next to your work</h3>
-            <p class="text-gray-300 text-lg leading-relaxed">Notes and tasks shouldn't live in separate apps. The reason
-              you're building something matters as much as the task itself. Flow Maxxing keeps them connected without
-              making it a project management suite.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TECH STACK -->
-  <section class="py-32 px-6 border-t border-white/5 relative overflow-hidden">
-    <div
-      class="absolute w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[150px] bottom-[-200px] right-[-200px] pointer-events-none">
-    </div>
-    <div class="max-w-5xl mx-auto relative z-10">
-      <div class="text-center mb-16">
-        <p class="mono-tag text-gray-300 mb-4">[ UNDER THE HOOD ]</p>
-        <h2 class="text-4xl font-bold">The Infrastructure</h2>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-        <div class="bento-card p-8 flex items-center gap-6">
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center bg-blue-500/10 border border-blue-500/20">
-            <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-              <path d="M8 1L13 4v8l-5 3L3 12V4z" stroke="#3b82f6" stroke-width="1.5" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-lg text-white font-bold">FastAPI</p>
-            <p class="mono-tag text-[10px] text-gray-300 mt-1">BACKEND</p>
-          </div>
-        </div>
-
-        <div class="bento-card p-8 flex items-center gap-6">
-          <div
-            class="w-14 h-14 rounded-2xl flex items-center justify-center bg-green-500/10 border border-green-500/20">
-            <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="5" stroke="#22c55e" stroke-width="1.5" />
-              <path d="M8 5v3l2 2" stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-lg text-white font-bold">JWT Auth</p>
-            <p class="mono-tag text-[10px] text-gray-300 mt-1">SECURITY</p>
-          </div>
-        </div>
-
-        <div class="bento-card p-8 flex items-center gap-6">
-          <div
-            class="w-14 h-14 rounded-2xl flex items-center justify-center bg-effortel-accent/10 border border-effortel-accent/20">
-            <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-              <rect x="2" y="2" width="12" height="12" rx="2" stroke="var(--effortel-accent)" stroke-width="1.5" />
-              <path d="M5 8h6M5 5h4M5 11h3" stroke="var(--effortel-accent)" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-lg text-white font-bold">TailwindCSS</p>
-            <p class="mono-tag text-[10px] text-gray-300 mt-1">STYLING</p>
-          </div>
-        </div>
-
-        <div class="bento-card p-8 flex items-center gap-6">
-          <div
-            class="w-14 h-14 rounded-2xl flex items-center justify-center bg-purple-500/10 border border-purple-500/20">
-            <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-              <path d="M3 3h10v10H3z" stroke="#a855f7" stroke-width="1.5" rx="1" />
-              <path d="M6 3v10M10 3v10" stroke="#a855f7" stroke-width="1" opacity=".5" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-lg text-white font-bold">Pure HTML</p>
-            <p class="mono-tag text-[10px] text-gray-300 mt-1">FRONTEND</p>
-          </div>
-        </div>
-
-        <div class="bento-card p-8 flex items-center gap-6">
-          <div class="w-14 h-14 rounded-2xl flex items-center justify-center bg-pink-500/10 border border-pink-500/20">
-            <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-              <ellipse cx="8" cy="8" rx="6" ry="3" stroke="#f472b6" stroke-width="1.5" />
-              <path d="M2 8c0 2.2 2.7 4 6 4s6-1.8 6-4" stroke="#f472b6" stroke-width="1.5" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-lg text-white font-bold">SQLite</p>
-            <p class="mono-tag text-[10px] text-gray-300 mt-1">DATABASE</p>
-          </div>
-        </div>
-
-        <div class="bento-card p-8 flex items-center gap-6">
-          <div
-            class="w-14 h-14 rounded-2xl flex items-center justify-center bg-orange-500/10 border border-orange-500/20">
-            <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
-              <path d="M8 2v12M2 8h12" stroke="#f97316" stroke-width="1.5" stroke-linecap="round" />
-            </svg>
-          </div>
-          <div>
-            <p class="text-lg text-white font-bold">REST API</p>
-            <p class="mono-tag text-[10px] text-gray-300 mt-1">INTERFACE</p>
-          </div>
+        
+        <div class="w-full md:w-2/3 space-y-8 text-lg text-gray-300 leading-relaxed">
+          <p>
+            I spent more time organizing my tasks than actually doing them. I'd download a new app, spend two days setting up a complex system of tags, folders, and priority matrices, and then completely abandon it by Thursday. 
+          </p>
+          <p>
+            It felt like these apps were built for project managers at Fortune 500 companies, not for people who just wanted to get things done without having to fill out a form every time they had an idea.
+          </p>
+          <p class="text-white font-medium text-2xl border-l-4 border-[#FF3B00] pl-6 py-2 my-12">
+            "I wanted something that made productivity feel rewarding, not like another chore. Something brutal, fast, and completely unhinged."
+          </p>
+          <p>
+            So I built TaskMaxxing. I stripped away the fluff, the motivational quotes, and the endless sub-menus. What's left is a tool for locking in. It connects your fleeting thoughts to your main objectives and tracks your aura points along the way.
+          </p>
+          <p>
+            If you're tired of switching tools and just want to finish your work, you're in the right place.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="py-32 px-6 border-t border-white/5 bg-[#0a0d10] text-center">
-    <div class="max-w-2xl mx-auto">
-      <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-6">Enough yapping. Start cooking.</h2>
-      <p class="text-gray-300 mb-10 text-lg">Free, minimal, fast. No credit card required.</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/signup"
-          class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-4 text-lg w-full sm:w-auto hover:bg-gray-200 transition-colors">GENERATE
-          AURA</a>
-        <a href="/login"
-          class="btn-effortel btn-pill border border-white/20 text-white font-bold px-8 py-4 text-lg w-full sm:w-auto hover:bg-white/10 transition-colors">LOG
-          IN</a>
+  <section class="py-40 px-6 border-t border-[#222] bg-[#FF3B00] text-black text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="hero-title !text-black">STOP YAPPING.<br>START BUILDING.</h2>
+      <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6">
+        <a href="/signup" class="btn-primary !bg-black !text-white w-full sm:w-auto hover:!bg-white hover:!text-black">CREATE ACCOUNT</a>
       </div>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="border-t border-white/10 bg-[#0a0d10] pt-16 pb-32 md:pb-16 px-6">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
-      <div class="space-y-4">
-        <a href="/" class="flex items-center gap-2 font-bold text-white text-lg tracking-tight">
-          <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-            <rect width="20" height="20" rx="4" fill="#2ED2E5" />
-            <path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          Flow Maxxing
-        </a>
-        <p class="text-gray-300 text-lg max-w-xs">Building tools for deep work. Powered by minimal design and powerful
-          functionality.</p>
+  <footer class="footer-section">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+      <div>
+        <a href="/" class="nav-brand text-2xl">TASKMAXXING</a>
+        <p class="text-[#555] font-bold uppercase tracking-widest text-xs mt-2">Built by Aditya Dagar</p>
+      </div>
+      
+      <div class="flex gap-8">
+        <a href="/signup" class="nav-link" style="font-size: 1rem;">SIGN UP</a>
+        <a href="/login" class="nav-link" style="font-size: 1rem;">LOG IN</a>
       </div>
 
-      <div class="flex flex-wrap gap-x-12 gap-y-6">
-        <div class="flex flex-col gap-3">
-          <span class="mono-tag text-white/50">Platform</span>
-          <a href="/signup" class="text-lg text-gray-300 hover:text-white transition-colors">Sign up</a>
-          <a href="/login" class="text-lg text-gray-300 hover:text-white transition-colors">Log in</a>
-          <a href="/#features" class="text-lg text-gray-300 hover:text-white transition-colors">Features</a>
-        </div>
-        <div class="flex flex-col gap-3">
-          <span class="mono-tag text-white/50">Company</span>
-          <a href="/about" class="text-lg text-white transition-colors">About</a>
-          <a href="#" class="text-lg text-gray-300 hover:text-white transition-colors">Privacy</a>
-          <a href="#" class="text-lg text-gray-300 hover:text-white transition-colors">Terms</a>
-        </div>
-      </div>
-    </div>
-    <div class="max-w-6xl mx-auto mt-16 pt-8 border-t border-white/5 text-center md:text-left">
-      <p class="text-lg text-gray-500 mono-tag">© 2026 FLOW MAXXING. ALL RIGHTS RESERVED.</p>
+      <p class="text-[#555] font-bold uppercase tracking-widest text-sm text-center md:text-right">
+        © 2026 TASKMAXXING. ALL RIGHTS RESERVED.
+      </p>
     </div>
   </footer>
 
 </body>
-
 </html>

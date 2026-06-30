@@ -19,8 +19,9 @@ async def handle_login(user: USER_LOGIN, request: Request):
   if db_call is None:
     return templates.TemplateResponse(
         "error.html",
-        {
-            "request": request,
+        request=request,
+        status_code=911,
+        context={
             "code": 911,
             "title": "Wrong Credentials",
             "message": "Invalid email or password."

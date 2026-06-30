@@ -1,26 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>404 — Flow Maxxing</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — TaskMaxxing</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    body { background: #000; color: #fff; font-family: 'Inter', sans-serif; }
-    .hero-glow { position: fixed; width: 500px; height: 500px; background: radial-gradient(circle, rgba(0,112,243,0.08) 0%, transparent 70%); top: -100px; left: 50%; transform: translateX(-50%); pointer-events: none; }
+    body {
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .hero-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(4rem, 12vw, 10rem);
+      line-height: 0.85;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+    
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #FF3B00;
+      color: #000000;
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: #ffffff;
+    }
   </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col items-center justify-center text-center px-6">
-  <div class="hero-glow"></div>
-  <div class="relative z-10">
-    <p class="text-7xl font-bold mb-4" style="color:rgba(255,255,255,0.07); font-variant-numeric: tabular-nums; letter-spacing: -0.05em">404</p>
-    <h1 class="text-xl font-semibold text-white mb-3">Page not found</h1>
-    <p class="text-lg text-gray-300 mb-8 max-w-xs">The page you're looking for doesn't exist or has been moved.</p>
-    <div class="flex gap-3 justify-center">
-      <a href="/" class="bg-white text-black font-medium px-6 py-2.5 rounded-md text-lg hover:bg-gray-100 transition-colors">Go home</a>
-      <button onclick="history.back()" class="border border-white/15 text-gray-300 hover:text-white px-6 py-2.5 rounded-md text-lg transition-colors">Go back</button>
+
+<body class="antialiased min-h-screen flex items-center justify-center selection:bg-[#FF3B00] selection:text-black">
+
+  <div class="relative z-10 max-w-xl w-full px-8 text-center">
+
+    <div class="hero-title text-[#FF3B00] mb-4">
+      404
     </div>
+
+    <h1 class="text-3xl font-display uppercase tracking-widest font-bold mb-4">
+      NOT FOUND
+    </h1>
+
+    <div class="border border-[#FF3B00] text-[#FF3B00] font-bold uppercase tracking-widest px-3 py-1 inline-block mb-6 text-sm">
+      [ SKILL ISSUE ]
+    </div>
+
+    <p class="text-xl text-gray-400 leading-relaxed mb-10 font-medium">
+      You wandered too far from your main quests. This page doesn't exist.
+    </p>
+
+    <div class="flex flex-col gap-4 max-w-sm mx-auto">
+      <a href="/" class="btn-primary">
+        RETURN TO LOBBY
+      </a>
+    </div>
+
   </div>
+
 </body>
+
 </html>

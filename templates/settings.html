@@ -1,270 +1,250 @@
 {% extends "base.html" %}
 {% set active_page = "settings" %}
 
-{% block title %}Settings — Flow Maxxing{% endblock %}
+{% block title %}Settings — TaskMaxxing{% endblock %}
 
 {% block styles %}
+.page-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.page-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: #888888;
+  max-width: 600px;
+}
+
 .settings-panel {
-background: var(--effortel-dark-surface);
-border: 1px solid rgba(255, 255, 255, 0.05);
-border-radius: 20px;
-padding: 32px;
+  border-top: 1px solid #222;
+  padding: 40px 0;
+}
+
+.panel-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 2rem;
+  color: #FF3B00;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 32px;
 }
 
 .form-group {
-margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .form-label {
-display: block;
-font-size: 0.875rem;
-font-weight: 500;
-color: #aaa;
-margin-bottom: 8px;
+  display: block;
+  font-family: 'Anton', sans-serif;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
 }
 
-.form-input {
-width: 100%;
-background: rgba(0, 0, 0, 0.3);
-border: 1px solid rgba(255, 255, 255, 0.1);
-color: #fff;
-padding: 12px 16px;
-border-radius: 12px;
-font-size: 0.95rem;
-transition: all 0.2s;
-outline: none;
+.form-input-brutal {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #333;
+  color: #ffffff;
+  padding: 16px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-.form-input:focus {
-border-color: var(--effortel-accent);
-box-shadow: 0 0 0 3px rgba(46, 210, 229, 0.1);
-background: rgba(0, 0, 0, 0.5);
+.form-input-brutal:focus {
+  outline: none;
+  border-color: #FF3B00;
+  background: rgba(255, 59, 0, 0.02);
+}
+
+.form-input-brutal::placeholder {
+  color: #444;
 }
 
 /* Toggle switch */
 .toggle-switch {
-position: relative;
-display: inline-block;
-width: 44px;
-height: 24px;
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 32px;
 }
 
 .toggle-switch input {
-opacity: 0;
-width: 0;
-height: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .slider {
-position: absolute;
-cursor: pointer;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: rgba(255, 255, 255, 0.1);
-transition: .4s;
-border-radius: 24px;
-border: 1px solid rgba(255, 255, 255, 0.05);
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: transparent;
+  border: 2px solid #555;
+  transition: .4s;
 }
 
 .slider:before {
-position: absolute;
-content: "";
-height: 18px;
-width: 18px;
-left: 2px;
-bottom: 2px;
-background-color: white;
-transition: .4s;
-border-radius: 50%;
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #555;
+  transition: .4s;
 }
 
 input:checked+.slider {
-background-color: var(--effortel-accent);
-border-color: var(--effortel-accent);
+  border-color: #FF3B00;
 }
 
 input:checked+.slider:before {
-background-color: var(--effortel-dark-bg);
-}
-
-input:checked+.slider:before {
-transform: translateX(20px);
+  background-color: #FF3B00;
+  transform: translateX(28px);
 }
 {% endblock %}
 
-{% block page_title %}CONFIGURATION{% endblock %}
-
 {% block content %}
-<div
-  class="absolute top-0 right-1/4 w-[400px] h-[400px] bg-effortel-accent/5 rounded-full blur-[100px] pointer-events-none z-0">
-</div>
+<div class="px-8 md:px-16 py-12 md:py-24 max-w-7xl mx-auto w-full">
 
-<main class="flex-1 overflow-y-auto p-8 relative z-10">
-  <div class="max-w-4xl mx-auto space-y-8">
+  <section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-20 border-b border-border pb-12">
+    <div>
+      <h1 class="page-title">SETTINGS</h1>
+      <p class="page-subtitle">Configure your lock-in preferences.</p>
+    </div>
+    <button class="btn-primary py-4 px-8 text-lg">Save Changes</button>
+  </section>
 
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
-      <div>
-        <h2 class="text-4xl font-bold text-white mb-2">Settings</h2>
-        <p class="text-gray-300">Configure your lock-in preferences.</p>
-      </div>
-      <button
-        class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-8 py-2.5 text-lg shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all">
-        Save Changes
-      </button>
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+
+    <!-- Settings Navigation -->
+    <div class="md:col-span-3 space-y-4">
+      <a href="#profile" class="block font-display text-2xl text-primary uppercase tracking-widest hover:text-white transition-colors">Profile Details</a>
+      <a href="#preferences" class="block font-display text-2xl text-gray-500 uppercase tracking-widest hover:text-white transition-colors">Vibe Check</a>
+      <a href="#security" class="block font-display text-2xl text-gray-500 uppercase tracking-widest hover:text-white transition-colors">Security</a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <!-- Settings Navigation -->
-      <div class="col-span-1 space-y-2 border-r border-white/5 pr-6 hidden md:block">
-        <a href="#profile"
-          class="block px-4 py-3 rounded-lg text-effortel-accent bg-effortel-accent/10 font-medium transition-colors">Profile
-          Details</a>
-        <a href="#preferences"
-          class="block px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 font-medium transition-colors">Vibe
-          Check</a>
-        <a href="#security"
-          class="block px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 font-medium transition-colors">Security</a>
-        <a href="#billing"
-          class="block px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 font-medium transition-colors">Billing</a>
-      </div>
+    <!-- Settings Content -->
+    <div class="md:col-span-9 space-y-12">
 
-      <!-- Settings Content -->
-      <div class="col-span-1 md:col-span-2 space-y-8">
+      <!-- Profile Section -->
+      <section id="profile" class="settings-panel border-t-0 pt-0">
+        <h3 class="panel-title">PROFILE INFORMATION</h3>
 
-        <!-- Profile Section -->
-        <section id="profile" class="settings-panel">
-          <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--effortel-accent)" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            Profile Information
-          </h3>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8 mb-10">
+          <div class="w-24 h-24 bg-primary text-black flex items-center justify-center text-3xl font-display uppercase">
+            {% if user %}{{user.first_name[0]}}{{user.last_name[0]}}{% else %}AD{% endif %}
+          </div>
+          <div>
+            <button class="border border-white text-white px-6 py-3 font-semibold uppercase text-sm hover:bg-white hover:text-black transition-colors mb-2">Upload Photo</button>
+            <p class="text-sm text-gray-500">At least 800x800px recommended.</p>
+          </div>
+        </div>
 
-          <div class="flex items-center gap-6 mb-8">
-            <div
-              class="w-20 h-20 rounded-full bg-effortel-accent/20 border border-effortel-accent flex items-center justify-center text-effortel-accent text-2xl font-bold shadow-[0_0_15px_rgba(46,210,229,0.2)]">
-              {% if user %}{{user.first_name[0]}}{{user.last_name[0]}}{% else %}AD{% endif %}
-            </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-group mb-0">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input-brutal" value="{{user.first_name}}" />
+          </div>
+          <div class="form-group mb-0">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input-brutal" value="{{user.last_name}}" />
+          </div>
+        </div>
+
+        <div class="form-group mt-6">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input-brutal" value="{{user.email}}" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Bio</label>
+          <textarea class="form-input-brutal" rows="4">{{user.bio}}</textarea>
+        </div>
+      </section>
+
+      <!-- Preferences Section -->
+      <section id="preferences" class="settings-panel">
+        <h3 class="panel-title">VIBE CHECK</h3>
+
+        <div class="space-y-8">
+          <div class="flex items-center justify-between border-b border-border pb-6">
             <div>
-              <button
-                class="btn-effortel btn-pill bg-white/10 hover:bg-white/20 text-white font-medium px-4 py-2 text-lg transition-colors border border-white/10">Upload
-                Photo</button>
-              <p class="text-lg text-gray-300 mt-2">At least 800x800px recommended.</p>
+              <h4 class="text-xl font-display text-white uppercase tracking-widest">Desktop Notifications</h4>
+              <p class="text-sm text-gray-500 mt-2">Aura -15 for ignoring that notification.</p>
             </div>
+            <label class="toggle-switch">
+              <input type="checkbox" {% if user.preferences[1]==1 %} checked {% endif %}>
+              <span class="slider"></span>
+            </label>
           </div>
 
-          <div class="grid grid-cols-2 gap-4">
-            <div class="form-group col-span-2 md:col-span-1">
-              <label class="form-label">First Name</label>
-              <input type="text" class="form-input" value="{{user.first_name}}" />
+          <div class="flex items-center justify-between border-b border-border pb-6">
+            <div>
+              <h4 class="text-xl font-display text-white uppercase tracking-widest">Dark Mode</h4>
+              <p class="text-sm text-gray-500 mt-2">Because light mode is a skill issue. (Locked)</p>
             </div>
-            <div class="form-group col-span-2 md:col-span-1">
-              <label class="form-label">Last Name</label>
-              <input type="text" class="form-input" value="{{user.last_name}}" />
-            </div>
+            <label class="toggle-switch opacity-50 cursor-not-allowed">
+              <input type="checkbox" checked disabled>
+              <span class="slider"></span>
+            </label>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">Email Address</label>
-            <input type="email" class="form-input" value="{{user.email}}" />
-          </div>
-
-          <div class="form-group">
-            <label class="form-label">Bio</label>
-            <textarea class="form-input" rows="3">{{user.bio}}</textarea>
-          </div>
-        </section>
-
-        <!-- Preferences Section -->
-        <section id="preferences" class="settings-panel">
-          <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--effortel-accent)" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v20" />
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-            </svg>
-            Vibe Check
-          </h3>
-
-          <div class="space-y-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="text-white font-medium">Desktop Notifications</h4>
-                <p class="text-lg text-gray-300 mt-1">Aura -15 for ignoring that notification.</p>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" {% if user.preferences[1]==1 %} checked {% endif %}>
-                <span class="slider"></span>
-              </label>
+          <div class="flex items-center justify-between border-b border-border pb-6">
+            <div>
+              <h4 class="text-xl font-display text-white uppercase tracking-widest">Weekly Digest</h4>
+              <p class="text-sm text-gray-500 mt-2">Receive a summary of how much you cooked.</p>
             </div>
-
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="text-white font-medium">Dark Mode</h4>
-                <p class="text-lg text-gray-300 mt-1">Because light mode is a skill issue. (Locked)</p>
-              </div>
-              <label class="toggle-switch opacity-50 cursor-not-allowed">
-                <input type="checkbox" checked disabled>
-                <span class="slider"></span>
-              </label>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="text-white font-medium">Weekly Digest</h4>
-                <p class="text-lg text-gray-300 mt-1">Receive a summary of how much you cooked.</p>
-              </div>
-              <label class="toggle-switch">
-                <input type="checkbox" {% if user.preferences[2]==1 %} checked {% endif %}>
-                <span class="slider"></span>
-              </label>
-            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" {% if user.preferences[2]==1 %} checked {% endif %}>
+              <span class="slider"></span>
+            </label>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <!-- Security Section -->
-        <section id="security" class="settings-panel border border-red-500/20">
-          <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--effortel-accent)" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
-            Security
-          </h3>
+      <!-- Security Section -->
+      <section id="security" class="settings-panel">
+        <h3 class="panel-title">SECURITY</h3>
 
-          <div class="form-group">
-            <label class="form-label">Current Password</label>
-            <input type="password" class="form-input" placeholder="••••••••" />
+        <div class="form-group">
+          <label class="form-label">Current Password</label>
+          <input type="password" class="form-input-brutal" placeholder="••••••••" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-group mb-0">
+            <label class="form-label">New Password</label>
+            <input type="password" class="form-input-brutal" />
           </div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <div class="form-group col-span-2 md:col-span-1">
-              <label class="form-label">New Password</label>
-              <input type="password" class="form-input" />
-            </div>
-            <div class="form-group col-span-2 md:col-span-1">
-              <label class="form-label">Confirm Password</label>
-              <input type="password" class="form-input" />
-            </div>
+          <div class="form-group mb-0">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-input-brutal" />
           </div>
+        </div>
 
-          <div class="mt-8 pt-6 border-t border-white/5">
-            <h4 class="text-red-400 font-medium mb-2">Danger Zone</h4>
-            <p class="text-lg text-gray-300 mb-4">Permanently delete your account and all associated data.</p>
-            <button
-              class="bg-red-500/10 hover:bg-red-500/20 text-red-500 border border-red-500/20 font-medium px-4 py-2 rounded-lg text-lg transition-colors">
-              Delete Account
-            </button>
-          </div>
-        </section>
+        <div class="mt-12 pt-12 border-t border-red-500/30">
+          <h4 class="text-3xl font-display text-red-500 uppercase tracking-widest mb-4">RAGE QUIT</h4>
+          <p class="text-gray-400 mb-8">Permanently delete your account and all associated data. This action cannot be undone. Don't blame us if you get cooked.</p>
+          <button class="bg-transparent border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-black font-bold uppercase tracking-widest px-8 py-4 transition-colors">
+            RAGE QUIT
+          </button>
+        </div>
+      </section>
 
-      </div>
     </div>
   </div>
-</main>
+</div>
 {% endblock %}

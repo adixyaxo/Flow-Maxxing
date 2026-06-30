@@ -1,221 +1,254 @@
 {% extends "base.html" %}
 {% set active_page = "tasks" %}
 
-{% block title %}Main Quests — Flow Maxxing{% endblock %}
+{% block title %}Main Quests — TaskMaxxing{% endblock %}
 
 {% block styles %}
+.page-title {
+font-family: 'Anton', sans-serif;
+font-size: clamp(3rem, 10vw, 8rem);
+line-height: 0.9;
+text-transform: uppercase;
+color: #ffffff;
+margin-bottom: 20px;
+}
+
+.page-subtitle {
+font-family: 'Inter', sans-serif;
+font-size: clamp(1rem, 2vw, 1.5rem);
+color: #888888;
+max-width: 600px;
+}
+
 .task-group-header {
+font-family: 'Anton', sans-serif;
+font-size: 2rem;
+color: #FF3B00;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+margin-top: 60px;
+margin-bottom: 20px;
+border-bottom: 2px solid #222;
+padding-bottom: 12px;
+}
+
+.works-list {
+display: flex;
+flex-direction: column;
+}
+
+.work-item {
+display: flex;
+flex-direction: column;
+padding: 40px 0;
+border-bottom: 1px solid #222222;
+transition: all 0.3s ease;
+}
+@media (min-width: 768px) {
+.work-item {
+flex-direction: row;
+align-items: flex-start;
+}
+}
+
+.work-item:hover {
+background: rgba(255, 255, 255, 0.02);
+}
+
+.work-number {
+font-family: 'Anton', sans-serif;
+font-size: 4rem;
+color: #333333;
+line-height: 1;
+width: 120px;
+flex-shrink: 0;
+transition: color 0.3s ease;
+}
+
+.work-item:hover .work-number {
+color: #FF3B00;
+}
+
+.work-content {
+flex: 1;
+padding-right: 20px;
+}
+
+.work-title {
+font-family: 'Anton', sans-serif;
+font-size: 2rem;
+color: #ffffff;
+margin-bottom: 8px;
+text-transform: uppercase;
+}
+
+.work-desc {
+font-family: 'Inter', sans-serif;
+font-size: 1rem;
+color: #888888;
+margin-bottom: 16px;
+}
+
+.work-meta {
 display: flex;
 align-items: center;
 gap: 12px;
-margin-bottom: 16px;
-margin-top: 32px;
+flex-wrap: wrap;
 }
 
-.task-group-header:first-child {
-margin-top: 0;
+.badge {
+border: 1px solid #333;
+padding: 4px 12px;
+font-size: 0.75rem;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+color: #aaaaaa;
 }
 
-.task-group-header .line {
-flex: 1;
-height: 1px;
-background: rgba(255, 255, 255, 0.05);
-}
+.badge-high { border-color: #FF3B00; color: #FF3B00; }
+.badge-medium { border-color: #a8a8a8; color: #a8a8a8; }
+.badge-low { border-color: #555555; color: #555555; }
 
-.task-item {
+.work-action {
+margin-top: 20px;
 display: flex;
-align-items: start;
-gap: 16px;
-padding: 16px;
-background: rgba(0, 0, 0, 0.2);
-border: 1px solid rgba(255, 255, 255, 0.05);
-border-radius: 16px;
-margin-bottom: 12px;
-transition: all 0.2s;
-cursor: pointer;
+align-items: center;
 }
 
-.task-item:hover {
-border-color: rgba(46, 210, 229, 0.3);
-transform: translateX(4px);
-background: rgba(0, 0, 0, 0.4);
+@media (min-width: 768px) {
+.work-action {
+margin-top: 0;
+margin-left: auto;
+}
 }
 
-.checkbox {
-width: 22px;
-height: 22px;
-border-radius: 6px;
-border: 1.5px solid rgba(255, 255, 255, 0.2);
-flex-shrink: 0;
-margin-top: 2px;
-cursor: pointer;
-transition: all 0.2s;
+.checkbox-brutal {
+width: 32px;
+height: 32px;
+border: 2px solid #555;
+background: transparent;
 display: flex;
 align-items: center;
 justify-content: center;
+cursor: pointer;
+transition: all 0.2s;
 }
 
-.checkbox:hover {
-border-color: var(--effortel-accent);
-background: rgba(46, 210, 229, 0.1);
+.checkbox-brutal:hover {
+border-color: #fff;
 }
 
-.checkbox.checked {
-background: var(--effortel-accent);
-border-color: var(--effortel-accent);
-}
-
-.badge-priority {
-font-family: 'Space Mono', monospace;
-font-size: 0.65rem;
-padding: 4px 8px;
-border-radius: 6px;
-text-transform: uppercase;
-letter-spacing: 0.05em;
-}
-
-.badge-high {
-background: rgba(239, 68, 68, 0.1);
-color: #f87171;
-border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-.badge-medium {
-background: rgba(234, 179, 8, 0.1);
-color: #fbbf24;
-border: 1px solid rgba(234, 179, 8, 0.2);
-}
-
-.badge-low {
-background: rgba(46, 210, 229, 0.1);
-color: var(--effortel-accent);
-border: 1px solid rgba(46, 210, 229, 0.2);
+.checkbox-brutal.checked {
+background: #FF3B00;
+border-color: #FF3B00;
 }
 {% endblock %}
 
-{% block page_title %}MAIN QUESTS{% endblock %}
-
 {% block content %}
-<div
-  class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-effortel-accent/5 rounded-full blur-[120px] pointer-events-none z-0">
-</div>
+<div class="px-8 md:px-16 py-12 md:py-24 max-w-7xl mx-auto w-full">
 
-<main class="flex-1 overflow-y-auto p-8 relative z-10">
-  <div class="max-w-4xl mx-auto space-y-10">
+  <section
+    class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-20 border-b border-border pb-12">
+    <div>
+      <h1 class="page-title">WORKS</h1>
+      <p class="page-subtitle">Your backlog isn't going to finish itself.</p>
+    </div>
+    <button class="btn-primary">New Task +</button>
+  </section>
 
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
-      <div>
-        <h2 class="text-4xl font-bold text-white mb-2">Main Quests</h2>
-        <p class="text-gray-300">Either you're incredibly productive or incredibly delusional.</p>
+  <!-- TODAY -->
+  <h2 class="task-group-header">Today</h2>
+  <div class="works-list">
+    <div class="work-item group cursor-pointer">
+      <div class="work-number">01.</div>
+      <div class="work-content">
+        <h3 class="work-title">Pretend to become an engineer</h3>
+        <p class="work-desc">Integrate JWT token verification and redirect logic for the new auth endpoints. Make sure
+          to not get cooked.</p>
+        <div class="work-meta">
+          <span class="badge badge-high">HIGH</span>
+          <span class="text-sm font-semibold text-gray-500 uppercase">Today, 5:00 PM</span>
+          <span class="badge ml-auto border-white/20">#COOKING</span>
+        </div>
       </div>
-      <button
-        class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-lg flex items-center gap-2 max-w-fit shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
-        New Task
-      </button>
+      <div class="work-action">
+        <div class="checkbox-brutal"></div>
+      </div>
     </div>
 
-    <div>
-      <!-- TODAY -->
-      <div class="task-group-header">
-        <span class="mono-tag text-effortel-accent text-lg">[ TODAY ]</span>
-        <div class="line"></div>
-      </div>
-
-      <div class="task-item group">
-        <div class="checkbox"></div>
-        <div class="flex-1">
-          <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
-            Pretend to become an engineer</div>
-          <div class="text-gray-300 text-lg mb-3">Integrate JWT token verification and redirect logic for the new
-            auth endpoints. Make sure to not get cooked.</div>
-          <div class="flex items-center gap-3">
-            <span class="badge-priority badge-high">HIGH</span>
-            <span class="text-lg text-gray-300 font-mono">Today, 5:00 PM</span>
-            <span
-              class="ml-auto mono-tag text-[10px] text-gray-300 bg-white/5 px-2 py-1 rounded border border-white/10">#COOKING</span>
-          </div>
+    <div class="work-item group cursor-pointer">
+      <div class="work-number">02.</div>
+      <div class="work-content">
+        <h3 class="work-title">Touch grass for 10 minutes</h3>
+        <p class="work-desc">Review the latest Figma components for the bento grid cards. Ensure corner radiuses and
+          border opacities match. Massive W.</p>
+        <div class="work-meta">
+          <span class="badge badge-medium">MEDIUM</span>
+          <span class="text-sm font-semibold text-gray-500 uppercase">Today, 8:00 PM</span>
+          <span class="badge ml-auto border-primary text-primary">2 LORE LINKED</span>
         </div>
       </div>
+      <div class="work-action">
+        <div class="checkbox-brutal"></div>
+      </div>
+    </div>
+  </div>
 
-      <div class="task-item group">
-        <div class="checkbox"></div>
-        <div class="flex-1">
-          <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
-            Touch grass for 10 minutes</div>
-          <div class="text-gray-300 text-lg mb-3">Review the latest Figma components for the bento grid cards.
-            Ensure corner radiuses and border opacities match. Massive W.</div>
-          <div class="flex items-center gap-3">
-            <span class="badge-priority badge-medium">MEDIUM</span>
-            <span class="text-lg text-gray-300 font-mono">Today, 8:00 PM</span>
-            <span
-              class="ml-auto mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 border border-effortel-accent/20 px-2 py-1 rounded">2
-              LORE LINKED</span>
-          </div>
+  <!-- UPCOMING -->
+  <h2 class="task-group-header" style="color: #888;">Upcoming</h2>
+  <div class="works-list">
+    <div class="work-item group cursor-pointer">
+      <div class="work-number">03.</div>
+      <div class="work-content">
+        <h3 class="work-title">Review pull request #124</h3>
+        <div class="work-meta mt-4">
+          <span class="badge badge-low">LOW</span>
+          <span class="text-sm font-semibold text-gray-500 uppercase">Tomorrow, 10:00 AM</span>
         </div>
       </div>
-
-      <!-- UPCOMING -->
-      <div class="task-group-header mt-10">
-        <span class="mono-tag text-gray-300 text-lg">[ UPCOMING ]</span>
-        <div class="line"></div>
+      <div class="work-action">
+        <div class="checkbox-brutal"></div>
       </div>
+    </div>
 
-      <div class="task-item group">
-        <div class="checkbox"></div>
-        <div class="flex-1">
-          <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
-            Review pull request #124</div>
-          <div class="flex items-center gap-3">
-            <span class="badge-priority badge-low">LOW</span>
-            <span class="text-lg text-gray-300 font-mono">Tomorrow, 10:00 AM</span>
-          </div>
+    <div class="work-item group cursor-pointer">
+      <div class="work-number">04.</div>
+      <div class="work-content">
+        <h3 class="work-title">Prepare slide deck for client sync</h3>
+        <p class="work-desc">Include metrics from the last quarter and proposed architecture for the redesign.</p>
+        <div class="work-meta">
+          <span class="badge badge-high">HIGH</span>
+          <span class="text-sm font-semibold text-gray-500 uppercase">Friday</span>
+          <span class="badge ml-auto border-white/20">#MEETING</span>
         </div>
       </div>
+      <div class="work-action">
+        <div class="checkbox-brutal"></div>
+      </div>
+    </div>
+  </div>
 
-      <div class="task-item group">
-        <div class="checkbox"></div>
-        <div class="flex-1">
-          <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
-            Prepare slide deck for client sync</div>
-          <div class="text-gray-300 text-lg mb-3">Include metrics from the last quarter and proposed architecture
-            for the Effortel redesign.</div>
-          <div class="flex items-center gap-3">
-            <span class="badge-priority badge-high">HIGH</span>
-            <span class="text-lg text-gray-300 font-mono">Friday</span>
-            <span
-              class="ml-auto mono-tag text-[10px] text-gray-300 bg-white/5 px-2 py-1 rounded border border-white/10">#MEETING</span>
-          </div>
+  <!-- COOKED -->
+  <h2 class="task-group-header" style="color: #444;">Cooked</h2>
+  <div class="works-list">
+    <div class="work-item group cursor-pointer opacity-50">
+      <div class="work-number">05.</div>
+      <div class="work-content">
+        <h3 class="work-title line-through">Draft API documentation</h3>
+        <div class="work-meta mt-4">
+          <span class="text-sm font-semibold text-gray-500 uppercase">Completed Yesterday</span>
         </div>
       </div>
-
-      <!-- COMPLETED -->
-      <div class="task-group-header mt-10">
-        <span class="mono-tag text-gray-500 text-lg">[ COOKED ]</span>
-        <div class="line"></div>
-      </div>
-
-      <div class="task-item group opacity-50">
-        <div class="checkbox checked">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"
+      <div class="work-action">
+        <div class="checkbox-brutal checked">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="20 6 9 17 4 12"></polyline>
           </svg>
         </div>
-        <div class="flex-1">
-          <div class="text-gray-300 font-medium text-lg mb-1 line-through">Draft API documentation</div>
-          <div class="flex items-center gap-3 mt-2">
-            <span class="text-lg text-gray-300 font-mono">Completed Yesterday</span>
-          </div>
-        </div>
       </div>
-
     </div>
-
   </div>
-</main>
+
+</div>
 {% endblock %}

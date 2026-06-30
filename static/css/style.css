@@ -1,29 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  --effortel-dark-bg: #050505;
-  --effortel-dark-surface: #0a0a0a;
-  --effortel-light-bg: #111;
-  --effortel-light-surface: #151515;
-  --effortel-accent: #7C3AED;
-  --effortel-accent-hover: #6D28D9;
-  --accent-cyan: #06B6D4;
-  --accent-green: #22C55E;
-  --accent-orange: #F97316;
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --card: #111111;
+  --card-foreground: #ffffff;
+  --popover: #141414;
+  --popover-foreground: #ffffff;
+  --primary: #ffffff;
+  --primary-foreground: #0a0a0a;
+  --secondary: #1a1a1a;
+  --secondary-foreground: #ffffff;
+  --muted: #161616;
+  --muted-foreground: #8a8a8a;
+  --accent: #ffffff;
+  --accent-foreground: #0a0a0a;
+  --border: #ffffff0f;
+  --input: #ffffff14;
+  --ring: #ffffff;
+  --text-secondary: #a1a1a1;
+}
+
+html {
+  font-size: 80%;
 }
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--effortel-dark-bg);
-  color: #ffffff;
+  background-color: var(--background);
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  color: var(--foreground);
   -webkit-font-smoothing: antialiased;
 }
 
 .mono-tag {
   font-family: 'Space Mono', monospace;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  font-size: 0.65rem;
+  color: var(--muted-foreground);
 }
 
 /* Base button animations */
@@ -58,15 +76,15 @@ body {
 }
 
 .bento-card {
-  background: var(--effortel-dark-surface);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  transition: border-color 0.3s ease, transform 0.3s ease;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  transition: border-color 0.3s ease;
   overflow: hidden;
 }
 
 .bento-card:hover {
-  border-color: rgba(46, 210, 229, 0.3);
+  border-color: rgba(255, 255, 255, 0.25);
 }
 
 /* Floating Nav */
@@ -106,18 +124,8 @@ body {
   animation: float 6s ease-in-out infinite;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: var(--effortel-dark-bg); 
-}
-::-webkit-scrollbar-thumb {
-  background: #334155; 
-  border-radius: 4px;
-}
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569; 
+  background: #ffffff; 
 }
+
+

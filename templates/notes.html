@@ -1,319 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% set active_page = "notes" %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brain Dumps — Flow Maxxing</title>
-  <script src="/static/js/script.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['Space Mono', 'monospace']
-          },
-          colors: {
-            'effortel-dark-bg': '#0F1317',
-            'effortel-dark-surface': '#1B2026',
-            'effortel-light-bg': '#D1DCE2',
-            'effortel-light-surface': '#A9BAC4',
-            'effortel-accent': '#2ED2E5',
-            'effortel-accent-hover': '#1BB8C8',
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    body {
-      background: var(--effortel-dark-bg);
-      color: #fff;
-    }
+{% block title %}Brain Dumps — TaskMaxxing{% endblock %}
 
-    .sidebar {
-      background: var(--effortel-dark-bg);
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-    }
+{% block styles %}
+.page-title {
+  font-family: 'Anton', sans-serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
 
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 0.875rem;
-      color: #888;
-      transition: all 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: 500;
-    }
+.page-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  color: #888888;
+  max-width: 600px;
+}
 
-    .nav-item:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.03);
-    }
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
 
-    .nav-item.active {
-      color: var(--effortel-accent);
-      background: rgba(46, 210, 229, 0.08);
-    }
+@media (min-width: 768px) {
+  .insights-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 
-    .nav-item.active svg {
-      stroke: var(--effortel-accent);
-    }
+.insight-card {
+  border: 1px solid #222;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  min-height: 300px;
+}
 
-    .note-card {
-      background: var(--effortel-dark-surface);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 20px;
-      padding: 24px;
-      transition: all 0.3s;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
-    }
+.insight-card:hover {
+  border-color: #FF3B00;
+  background: rgba(255, 59, 0, 0.05);
+}
 
-    .note-card:hover {
-      border-color: rgba(46, 210, 229, 0.4);
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
+.insight-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: #FF3B00;
+  font-weight: 600;
+  margin-bottom: 24px;
+  letter-spacing: 0.05em;
+}
 
-    .note-card::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 100px;
-      height: 100px;
-      background: radial-gradient(circle, var(--effortel-accent) 0%, transparent 70%);
-      opacity: 0;
-      filter: blur(20px);
-      transition: opacity 0.3s;
-      pointer-events: none;
-    }
+.insight-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
 
-    .note-card:hover::after {
-      opacity: 0.15;
-    }
+.insight-desc {
+  color: #888888;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 24px;
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
 
-    .note-content-preview {
-      position: relative;
-    }
+.insight-date {
+  font-size: 0.8rem;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-top: 16px;
+  border-top: 1px solid #222;
+}
 
-    .note-content-preview::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 40px;
-      background: linear-gradient(to top, var(--effortel-dark-surface), transparent);
-    }
+.search-input-brutal {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #333;
+  color: #ffffff;
+  font-size: 1.25rem;
+  padding: 12px 0;
+  font-family: 'Anton', sans-serif;
+  text-transform: uppercase;
+  width: 300px;
+}
 
-    .topbar {
-      background: rgba(15, 19, 23, 0.8);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-    }
+.search-input-brutal:focus {
+  outline: none;
+  border-bottom-color: #FF3B00;
+}
 
-    .avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--effortel-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--effortel-dark-bg);
-      flex-shrink: 0;
-    }
-  </style>
-</head>
+.search-input-brutal::placeholder {
+  color: #333;
+}
+{% endblock %}
 
-<body class="antialiased selection:bg-effortel-accent selection:text-black">
+{% block content %}
+<div class="px-8 md:px-16 py-12 md:py-24 max-w-7xl mx-auto w-full">
 
-  <div class="flex h-screen overflow-hidden">
-    <!-- SIDEBAR -->
-    <aside class="sidebar w-64 flex flex-col flex-shrink-0 hidden md:flex">
-      <div class="p-6">
-        <a href="/" class="flex items-center gap-2 font-bold text-white tracking-tight">
-          <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-            <rect width="20" height="20" rx="4" fill="#2ED2E5" />
-            <path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          Flow Maxxing
-        </a>
-      </div>
-
-      <nav class="flex-1 px-4 space-y-2 overflow-y-auto">
-        <a href="/dashboard" class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect width="7" height="9" x="3" y="3" rx="1" />
-            <rect width="7" height="5" x="14" y="3" rx="1" />
-            <rect width="7" height="9" x="14" y="12" rx="1" />
-            <rect width="7" height="5" x="3" y="16" rx="1" />
-          </svg>
-          Overview
-        </a>
-        <a href="/tasks" class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20" />
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-          </svg>
-          Main Quests
-        </a>
-        <a href="/notes" class="nav-item active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-            <polyline points="14 2 14 8 20 8" />
-          </svg>
-          Brain Dumps
-        </a>
-
-        <div class="pt-8">
-          <p class="mono-tag text-gray-300 mb-3 px-3">[ SYSTEM ]</p>
-          <a href="/profile" class="nav-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            Profile
-          </a>
-          <a href="/settings" class="nav-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path
-                d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-            Settings
-          </a>
-        </div>
-      </nav>
-
-      <div class="p-4 border-t border-white/5">
-        <button onclick="logout()"
-          class="nav-item w-full text-left text-gray-300 hover:text-red-400 hover:bg-red-500/10 transition-colors">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg>
-          Log out
-        </button>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <div class="flex-1 flex flex-col overflow-hidden relative">
-      <!-- TOPBAR -->
-      <header class="topbar h-16 flex items-center justify-between px-8 flex-shrink-0 relative z-20">
-        <div class="flex items-center gap-3">
-          <button id="nav-toggle" class="md:hidden text-gray-300 hover:text-white focus:outline-none flex items-center justify-center">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          </button>
-          <div class="hidden md:block w-2 h-2 rounded-full bg-effortel-accent animate-pulse"></div>
-          <h1 class="text-lg font-semibold mono-tag tracking-widest text-gray-300">BRAIN DUMPS</h1>
-        </div>
-        <div class="flex items-center gap-4">
-          <div class="flex items-center gap-3 bg-white/5 pl-3 pr-1 py-1 rounded-full border border-white/5">
-            <span class="text-lg font-medium text-gray-300 hidden md:block" id="user-name">{{user.first_name}} {{user.last_name}}</span>
-            <div class="avatar" id="user-avatar">{{user.first_name[0]}}{{user.last_name[0]}}</div>
-          </div>
-        </div>
-      </header>
-
-      <!-- MOBILE MENU -->
-      <div id="mobile-menu" class="hidden md:hidden bg-effortel-dark-bg border-b border-white/5 absolute top-16 left-0 right-0 z-50 flex flex-col p-4 shadow-2xl">
-        <a href="/dashboard" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg> Overview</a>
-        <a href="/tasks" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Main Quests</a>
-        <a href="/notes" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> Brain Dumps</a>
-        <div class="h-px bg-white/5 my-2"></div>
-        <a href="/profile" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Profile</a>
-        <a href="/settings" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg> Settings</a>
-        <button onclick="logout()" class="nav-item w-full text-left text-red-400 hover:bg-red-500/10 transition-colors mt-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Log out</button>
-      </div>
-
-      <!-- BACKGROUND GLOW -->
-      <div
-        class="absolute bottom-0 right-0 w-[600px] h-[600px] bg-effortel-accent/5 rounded-full blur-[150px] pointer-events-none z-0">
-      </div>
-
-      <!-- SCROLL AREA -->
-      <main class="flex-1 overflow-y-auto p-8 relative z-10">
-        <div class="max-w-6xl mx-auto space-y-10">
-
-          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
-            <div>
-              <h2 class="text-4xl font-bold text-white mb-2">Brain Dumps</h2>
-              <p class="text-gray-300">Your brain dump is suspiciously clean.</p>
-            </div>
-
-            <div class="flex items-center gap-4">
-              <div class="relative">
-                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" fill="none"
-                  stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-                <input type="text" placeholder="Search notes..."
-                  class="bg-black/30 border border-white/10 rounded-full py-2 pl-9 pr-4 text-lg text-white focus:outline-none focus:border-effortel-accent transition-colors w-64" />
-              </div>
-
-              <button
-                class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-lg flex items-center gap-2 max-w-fit shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all" onclick="window.location.href='/notes/create'">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round">
-                  <line x1="12" y1="5" x2="12" y2="19" />
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
-                Create New
-              </button>
-            </div>
-          </div>
-
-          <!-- NOTES GRID -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {% for note in notes %}
-            <!-- Note Card 1 -->
-            <a href="/note/{{note._id}}" class="note-card cursor-pointer group block" style="text-decoration: none;">
-              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">{{note.title}}</h4>
-              <div class="flex items-center justify-between mb-6">
-                <span class="text-lg text-gray-300 font-mono">{{note.date_created}}</span>
-              </div>
-              <div class="flex items-center justify-between mb-6">
-                {% for tag in note.tags %}
-                  <span
-                  class="mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 px-2 py-1 rounded">{{tag}}</span>
-                {% endfor %}
-              </div>
-              <div class="note-content-preview flex-1">
-                <p class="text-lg text-gray-300 leading-relaxed">
-                  {{note.content}}
-                </p>
-              </div>
-            </a>
-            {% endfor %}
-          </div>
-
-        </div>
-      </main>
+  <section class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-20 border-b border-border pb-12">
+    <div>
+      <h1 class="page-title">BRAIN DUMPS</h1>
+      <p class="page-subtitle">Your notes are suspiciously clean. Start yapping.</p>
     </div>
-  </div>
-</body>
+    
+    <div class="flex flex-col sm:flex-row items-center gap-6">
+      <input type="text" placeholder="Search..." class="search-input-brutal" />
+      <button class="btn-primary" onclick="window.location.href='/notes/create'">New Note +</button>
+    </div>
+  </section>
 
-</html>
+  <!-- NOTES GRID -->
+  <div class="insights-grid">
+    {% for note in notes %}
+    <a href="/note/{{note._id}}" class="insight-card cursor-pointer group">
+      {% if note.tags %}
+        <div class="insight-tag">{{ note.tags[0] }}</div>
+      {% else %}
+        <div class="insight-tag">LORE</div>
+      {% endif %}
+      
+      <h4 class="insight-title">{{note.title}}</h4>
+      <p class="insight-desc">{{note.content}}</p>
+      <div class="insight-date">{{note.date_created}}</div>
+    </a>
+    {% else %}
+    <a href="#" class="insight-card cursor-pointer">
+      <div class="insight-tag">LORE</div>
+      <h4 class="insight-title">Corporate Fan Fiction</h4>
+      <p class="insight-desc">Me pretending to know what the Q3 revenue metrics mean during the all-hands. Very demure, very mindful.</p>
+      <div class="insight-date">Oct 24, 2026</div>
+    </a>
+    <a href="#" class="insight-card cursor-pointer">
+      <div class="insight-tag">PANIC</div>
+      <h4 class="insight-title">Academic Jump Scares</h4>
+      <p class="insight-desc">Just realized the midterm is tomorrow and I haven't even opened the syllabus. Chat, am I cooked?</p>
+      <div class="insight-date">Oct 22, 2026</div>
+    </a>
+    <a href="#" class="insight-card cursor-pointer">
+      <div class="insight-tag">YAP</div>
+      <h4 class="insight-title">Random Shower Thoughts</h4>
+      <p class="insight-desc">If you really think about it, sleep is just a free trial of death but with ads (dreams).</p>
+      <div class="insight-date">Oct 20, 2026</div>
+    </a>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

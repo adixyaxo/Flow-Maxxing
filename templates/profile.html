@@ -1,210 +1,217 @@
 {% extends "base.html" %}
 {% set active_page = "profile" %}
 
-{% block title %}Profile — Flow Maxxing{% endblock %}
+{% block title %}Profile — TaskMaxxing{% endblock %}
 
 {% block styles %}
-.input-field {
-background: rgba(0, 0, 0, 0.4);
-border: 1px solid rgba(255, 255, 255, 0.1);
+.page-title {
+font-family: 'Anton', sans-serif;
+font-size: clamp(3rem, 10vw, 8rem);
+line-height: 0.9;
+text-transform: uppercase;
+color: #ffffff;
+margin-bottom: 20px;
+}
+
+.page-subtitle {
+font-family: 'Inter', sans-serif;
+font-size: clamp(1rem, 2vw, 1.5rem);
+color: #888888;
+max-width: 600px;
+}
+
+.section-panel {
+border: 1px solid #222;
+padding: 40px;
+margin-bottom: 40px;
+}
+
+.panel-title {
+font-family: 'Anton', sans-serif;
+font-size: 2rem;
+color: #FF3B00;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+margin-bottom: 32px;
+border-bottom: 2px solid #222;
+padding-bottom: 12px;
+}
+
+.form-group {
+margin-bottom: 24px;
+}
+
+.form-label {
+display: block;
+font-family: 'Anton', sans-serif;
+font-size: 1.25rem;
+text-transform: uppercase;
 color: #fff;
-padding: 14px 16px;
-border-radius: 12px;
-font-size: 0.875rem;
-outline: none;
-transition: all 0.2s;
+margin-bottom: 12px;
+letter-spacing: 0.05em;
+}
+
+.input-field-brutal {
 width: 100%;
+background: transparent;
+border: 1px solid #333;
+color: #ffffff;
+padding: 16px 20px;
+font-family: 'Inter', sans-serif;
+font-size: 1rem;
+transition: all 0.3s ease;
 }
 
-.input-field:focus {
-border-color: var(--effortel-accent);
-background: rgba(46, 210, 229, 0.05);
+.input-field-brutal:focus {
+outline: none;
+border-color: #FF3B00;
+background: rgba(255, 59, 0, 0.02);
 }
 
-.input-field::placeholder {
+.input-field-brutal::placeholder {
 color: #444;
 }
 
-.input-field:disabled {
+.input-field-brutal:disabled {
 opacity: 0.5;
 cursor: not-allowed;
-}
-
-.section-card {
-background: var(--effortel-dark-surface);
-border: 1px solid rgba(255, 255, 255, 0.05);
-border-radius: 24px;
-overflow: hidden;
-transition: border-color 0.3s;
-}
-
-.section-card-header {
-padding: 24px 32px 16px;
-border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.section-card-body {
-padding: 24px 32px 32px;
+border-color: #222;
 }
 
 .avatar-xl {
-width: 80px;
-height: 80px;
-border-radius: 24px;
-background: var(--effortel-accent);
+width: 100px;
+height: 100px;
+background: #FF3B00;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 2rem;
-font-weight: 700;
-color: var(--effortel-dark-bg);
-border: 4px solid rgba(46, 210, 229, 0.2);
-}
-
-.avatar-sm {
-width: 32px;
-height: 32px;
-border-radius: 50%;
-background: var(--effortel-accent);
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 0.75rem;
-font-weight: 700;
-color: var(--effortel-dark-bg);
-flex-shrink: 0;
+font-family: 'Anton', sans-serif;
+font-size: 3rem;
+color: #000;
+text-transform: uppercase;
 }
 
 .success-msg {
 background: rgba(34, 197, 94, 0.1);
-border: 1px solid rgba(34, 197, 94, 0.25);
+border: 1px solid #22c55e;
 color: #4ade80;
 padding: 12px 16px;
-border-radius: 12px;
-font-size: 0.8rem;
-font-family: 'Space Mono', monospace;
+font-family: 'Anton', sans-serif;
 text-transform: uppercase;
+letter-spacing: 0.05em;
+margin-top: 16px;
 }
 
 .error-msg {
 background: rgba(220, 38, 38, 0.1);
-border: 1px solid rgba(220, 38, 38, 0.3);
+border: 1px solid #ef4444;
 color: #f87171;
 padding: 12px 16px;
-border-radius: 12px;
-font-size: 0.8rem;
-font-family: 'Space Mono', monospace;
+font-family: 'Anton', sans-serif;
 text-transform: uppercase;
+letter-spacing: 0.05em;
+margin-top: 16px;
 }
 {% endblock %}
 
-{% block page_title %}AURA PROFILE{% endblock %}
-
 {% block content %}
-<div
-  class="absolute left-[-200px] top-[20%] w-[500px] h-[500px] bg-effortel-accent/5 rounded-full blur-[150px] pointer-events-none z-0">
-</div>
+<div class="px-8 md:px-16 py-12 md:py-24 max-w-7xl mx-auto w-full">
 
-<main class="flex-1 overflow-y-auto p-8 relative z-10">
-  <div class="max-w-3xl mx-auto space-y-10">
+  <section
+    class="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-20 border-b border-border pb-12">
+    <div>
+      <h1 class="page-title">PROFILE</h1>
+      <p class="page-subtitle">Aura Check: Measuring your digital footprint.</p>
+    </div>
+  </section>
+
+  <div class="max-w-4xl">
 
     <!-- PROFILE INFO -->
-    <div class="section-card">
-      <div class="section-card-header flex items-center justify-between">
-        <h2 class="text-xl font-bold text-white tracking-tight">Aura Settings</h2>
-      </div>
-      <div class="section-card-body">
-        <div class="flex items-center gap-6 mb-10 pb-8 border-b border-white/5">
-          <div class="avatar-xl" id="big-avatar">{% if user %}{{user.first_name[0]}}{{user.last_name[0]}}{% else %}U{% endif %}</div>
-          <div>
-            <p class="text-2xl font-bold text-white mb-2" id="display-name">{{user.first_name}} {{user.last_name}}</p>
-            <div class="flex items-center gap-3">
-              <p class="mono-tag text-gray-300 bg-white/5 px-2 py-1 rounded-md" id="display-email">{{user.email}}</p>
-              <p class="mono-tag text-gray-500" id="display-joined">{{date_joined}}</p>
-            </div>
+    <div class="section-panel">
+      <h2 class="panel-title">AURA SETTINGS</h2>
+
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-8 mb-10 pb-8 border-b border-border">
+        <div class="avatar-xl" id="big-avatar">
+          {% if user %}{{user.first_name[0]}}{{user.last_name[0]}}{% else %}U{% endif %}
+        </div>
+        <div>
+          <p class="font-display text-3xl uppercase text-white mb-2" id="display-name">{{user.first_name}}
+            {{user.last_name}}</p>
+          <div class="flex flex-wrap items-center gap-4 mt-4">
+            <span class="border border-white/20 px-3 py-1 text-sm text-gray-400 font-bold uppercase tracking-widest"
+              id="display-email">{{user.email}}</span>
+            <span class="border border-primary text-primary px-3 py-1 text-sm font-bold uppercase tracking-widest"
+              id="display-joined">JOINED {{date_joined}}</span>
           </div>
         </div>
+      </div>
 
-        <div class="space-y-6">
-          <div class="grid grid-cols-2 gap-5">
-            <div>
-              <label class="block text-[10px] text-gray-300 mb-2 mono-tag">FIRST NAME</label>
-              <input type="text" id="first-name" class="input-field" placeholder="{{user['first_name']}}" />
-            </div>
-            <div>
-              <label class="block text-[10px] text-gray-300 mb-2 mono-tag">LAST NAME</label>
-              <input type="text" id="last-name" class="input-field" placeholder="{{user['last_name']}}" />
-            </div>
+      <div class="space-y-6 mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-group mb-0">
+            <label class="form-label">FIRST NAME</label>
+            <input type="text" id="first-name" class="input-field-brutal" placeholder="{{user['first_name']}}" />
           </div>
-          <div>
-            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">EMAIL ADDRESS</label>
-            <input type="email" id="email" class="input-field" placeholder="{{user.email}}" disabled />
-            <p class="text-lg text-gray-500 mt-2 mono-tag">[ EMAIL CANNOT BE CHANGED FOR NOW ]</p>
+          <div class="form-group mb-0">
+            <label class="form-label">LAST NAME</label>
+            <input type="text" id="last-name" class="input-field-brutal" placeholder="{{user['last_name']}}" />
           </div>
-          <div id="profile-msg" class="hidden"></div>
-          <div class="flex justify-end pt-4">
-            <button onclick="saveProfile()"
-              class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-lg">SAVE CHANGES</button>
-          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">EMAIL ADDRESS</label>
+          <input type="email" id="email" class="input-field-brutal" placeholder="{{user.email}}" disabled />
+          <p class="text-sm text-gray-500 mt-2 font-bold uppercase tracking-widest">[ EMAIL CANNOT BE CHANGED FOR NOW ]
+          </p>
+        </div>
+        <div id="profile-msg" class="hidden"></div>
+        <div class="pt-6">
+          <button onclick="saveProfile()" class="btn-primary">SAVE CHANGES</button>
         </div>
       </div>
     </div>
 
     <!-- CHANGE PASSWORD -->
-    <div class="section-card">
-      <div class="section-card-header">
-        <h2 class="text-xl font-bold text-white tracking-tight">Security</h2>
-      </div>
-      <div class="section-card-body space-y-6">
-        <div>
-          <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CURRENT PASSWORD</label>
-          <input type="password" id="current-pw" class="input-field" placeholder="••••••••" />
+    <div class="section-panel">
+      <h2 class="panel-title">SECURITY</h2>
+      <div class="space-y-6">
+        <div class="form-group">
+          <label class="form-label">CURRENT PASSWORD</label>
+          <input type="password" id="current-pw" class="input-field-brutal" placeholder="••••••••" />
         </div>
-        <div class="grid grid-cols-2 gap-5">
-          <div>
-            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">NEW PASSWORD</label>
-            <input type="password" id="new-pw" class="input-field" placeholder="Min. 8 characters" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="form-group mb-0">
+            <label class="form-label">NEW PASSWORD</label>
+            <input type="password" id="new-pw" class="input-field-brutal" placeholder="Min. 8 characters" />
           </div>
-          <div>
-            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CONFIRM NEW PASSWORD</label>
-            <input type="password" id="confirm-pw" class="input-field" placeholder="••••••••" />
+          <div class="form-group mb-0">
+            <label class="form-label">CONFIRM NEW PASSWORD</label>
+            <input type="password" id="confirm-pw" class="input-field-brutal" placeholder="••••••••" />
           </div>
         </div>
         <div id="pw-msg" class="hidden"></div>
-        <div class="flex justify-end pt-4">
-          <button onclick="changePassword()"
-            class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-lg">UPDATE PASSWORD</button>
+        <div class="pt-6">
+          <button onclick="changePassword()" class="btn-primary">UPDATE PASSWORD</button>
         </div>
       </div>
     </div>
 
     <!-- DANGER ZONE -->
-    <div class="section-card bg-red-950/10 border-red-500/20">
-      <div class="section-card-header border-red-500/10">
-        <h2 class="text-xl font-bold text-red-400 tracking-tight flex items-center gap-2">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-            <line x1="12" y1="9" x2="12" y2="13" />
-            <line x1="12" y1="17" x2="12.01" y2="17" />
-          </svg>
-          Danger Zone
-        </h2>
-      </div>
-      <div class="section-card-body">
-        <div class="flex items-center justify-between gap-6">
-          <div>
-            <p class="text-lg font-bold text-white mb-2">Rage Quit</p>
-            <p class="text-lg text-gray-300 leading-relaxed max-w-md">This permanently destroys your account and
-              obliterates all your main quests and lore. You will be cooked. This cannot be undone.</p>
-          </div>
-          <button onclick="deleteAccount()"
-            class="btn-effortel btn-pill bg-red-500/10 text-red-400 font-bold px-8 py-3 text-lg border border-red-500/20 hover:bg-red-500 hover:text-black flex-shrink-0">RAGE
-            QUIT</button>
+    <div class="section-panel border-red-500 bg-red-500/5">
+      <h2 class="panel-title border-red-500/30 text-red-500">DANGER ZONE</h2>
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div>
+          <p class="font-display text-2xl uppercase text-white mb-2">Rage Quit</p>
+          <p class="text-gray-400 max-w-md">This permanently destroys your account and obliterates all your main quests
+            and lore. You will be cooked. This cannot be undone.</p>
         </div>
+        <button onclick="deleteAccount()"
+          class="border-2 border-red-500 text-red-500 bg-transparent hover:bg-red-500 hover:text-black font-bold uppercase tracking-widest px-8 py-4 flex-shrink-0 transition-colors">
+          RAGE QUIT
+        </button>
       </div>
     </div>
 
   </div>
-</main>
+</div>
 {% endblock %}

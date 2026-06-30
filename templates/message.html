@@ -1,92 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>System Message — Flow Maxxing</title>
+  <title>System Message — TaskMaxxing</title>
   <script src="/static/js/script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['Space Mono', 'monospace']
-          },
-          colors: {
-            'effortel-dark-bg': '#0F1317',
-            'effortel-dark-surface': '#1B2026',
-            'effortel-light-bg': '#D1DCE2',
-            'effortel-light-surface': '#A9BAC4',
-            'effortel-accent': '#2ED2E5',
-            'effortel-accent-hover': '#1BB8C8',
-          },
-        },
-      },
-    };
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .hero-title {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(3rem, 10vw, 8rem);
+      line-height: 0.85;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+    
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      color: #000000;
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: #FF3B00;
+      color: #000000;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      color: #ffffff;
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      cursor: pointer;
+      border: 2px solid #ffffff;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .btn-secondary:hover {
+      background: #ffffff;
+      color: #000000;
+    }
+  </style>
 </head>
-<body class="antialiased min-h-screen flex items-center justify-center bg-effortel-dark-bg text-white selection:bg-effortel-accent selection:text-black">
 
-<!-- ambient glow -->
-<div class="fixed w-[600px] h-[600px] bg-effortel-accent/10 rounded-full blur-[150px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+<body class="antialiased min-h-screen flex items-center justify-center selection:bg-[#FF3B00] selection:text-black">
 
-<!-- Message Card -->
-<div class="relative z-10 max-w-md w-full px-8 text-center anim-float" style="animation-duration: 8s;">
+  <!-- Message Card -->
+  <div class="relative z-10 max-w-xl w-full px-8 text-center">
 
     <!-- Icon -->
-    <div class="mx-auto w-16 h-16 rounded-3xl bg-effortel-accent/10 border border-effortel-accent/20 flex items-center justify-center text-effortel-accent mb-6">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <div class="mx-auto w-24 h-24 rounded-full border-4 border-white flex items-center justify-center text-white mb-8">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </svg>
     </div>
 
-    <div class="text-[40px] font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-white/30 leading-none mb-6">
-        {{code}}
+    <div class="hero-title mb-6">
+      {{code}}
     </div>
 
     <!-- Title -->
-    <h1 class="text-3xl font-bold tracking-tight mb-2">
-        {{title}}
+    <h1 class="text-3xl font-display uppercase tracking-widest font-bold mb-4">
+      {{title}}
     </h1>
 
     <!-- Message -->
-    <p class="text-lg text-gray-300 leading-relaxed mb-8">
-        {{message}}
+    <p class="text-xl text-gray-400 leading-relaxed mb-10 font-medium">
+      {{message}}
     </p>
 
     <!-- Details Box -->
-    <div class="text-left glass-panel rounded-2xl p-5 text-[10px] mono-tag text-gray-300 mb-8 space-y-3">
-        <div class="flex justify-between border-b border-white/5 pb-2">
-            <span>STATUS</span>
-            <span class="text-effortel-accent font-bold">200 OK</span>
-        </div>
-        <div class="flex justify-between border-b border-white/5 pb-2">
-            <span>TIMESTAMP</span>
-            <span class="text-white">JUST NOW</span>
-        </div>
-        <div class="flex justify-between">
-            <span>RUNTIME</span>
-            <span class="text-white">FASTAPI</span>
-        </div>
+    <div class="text-left border border-[#222] p-5 text-xs font-bold uppercase tracking-widest text-gray-400 mb-10 space-y-4">
+      <div class="flex justify-between border-b border-[#222] pb-3">
+        <span>STATUS</span>
+        <span class="text-white">200 OK</span>
+      </div>
+      <div class="flex justify-between border-b border-[#222] pb-3">
+        <span>TIMESTAMP</span>
+        <span class="text-white">JUST NOW</span>
+      </div>
+      <div class="flex justify-between">
+        <span>RUNTIME</span>
+        <span class="text-white">FASTAPI</span>
+      </div>
     </div>
 
     <!-- Actions -->
-    <div class="flex flex-col gap-4">
-        <a href="/" class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-4 text-lg w-full transition-colors hover:bg-gray-200">
-            GO TOUCH GRASS (HOMEPAGE)
-        </a>
-        <a href="/docs" class="btn-effortel btn-pill glass-panel text-white font-bold px-8 py-4 text-lg w-full border border-white/10 hover:bg-white/10 transition-colors">
-            VIEW API DOCUMENTATION
-        </a>
+    <div class="flex flex-col gap-4 max-w-sm mx-auto">
+      <a href="/" class="btn-primary">
+        GO TOUCH GRASS
+      </a>
+      <a href="/docs" class="btn-secondary">
+        VIEW API DOCS
+      </a>
     </div>
 
     <!-- Footer hint -->
-    <p class="mono-tag text-[10px] text-gray-500 mt-12">
-        SYSTEM MESSAGE DELIVERED BY FASTAPI RUNTIME
+    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs mt-12">
+      SYSTEM MESSAGE DELIVERED BY FASTAPI RUNTIME
     </p>
 
-</div>
+  </div>
 
 </body>
+
 </html>
