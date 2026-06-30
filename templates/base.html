@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{% block title %}TaskMaxxing{% endblock %}</title>
+  <title>{% block title %}FlowMaxxing{% endblock %}</title>
   <script src="/static/js/script.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -132,7 +132,7 @@
 
   {% block topbar %}
   <header class="topbar w-full border-b border-border bg-black/80 backdrop-blur-md">
-    <a href="/" class="logo">TASKMAXXING</a>
+    <a href="/" class="logo">FlowMaxxing</a>
     <nav class="hidden md:flex nav-links items-center">
       <a href="/dashboard" class="nav-item {% if active_page == 'dashboard' %}active{% endif %}">Overview</a>
       <a href="/tasks" class="nav-item {% if active_page == 'tasks' %}active{% endif %}">Main Quests</a>
@@ -169,7 +169,7 @@
   <footer class="bg-primary text-black py-20 px-8 md:px-16 mt-20">
     <div class="max-w-7xl mx-auto flex flex-col justify-between items-start gap-10">
       <div>
-        <h2 class="font-display text-8xl md:text-[10rem] leading-none tracking-tighter m-0">TASKMAXXING</h2>
+        <h2 class="font-display text-8xl md:text-[10rem] leading-none tracking-tighter m-0">FlowMaxxing</h2>
         <p class="mt-8 text-xl font-bold max-w-2xl">
           Built by <span class="uppercase border-b-2 border-black">Aditya Dagar</span> because every other productivity app was mid and felt like a spreadsheet.
         </p>

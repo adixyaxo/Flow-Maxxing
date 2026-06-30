@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% set active_page = "notes" %}
 
-{% block title %}Brain Dumps — TaskMaxxing{% endblock %}
+{% block title %}Brain Dumps — FlowMaxxing{% endblock %}
 
 {% block styles %}
 .page-title {
@@ -114,7 +114,7 @@
       <h1 class="page-title">BRAIN DUMPS</h1>
       <p class="page-subtitle">Your notes are suspiciously clean. Start yapping.</p>
     </div>
-    
+
     <div class="flex flex-col sm:flex-row items-center gap-6">
       <input type="text" placeholder="Search..." class="search-input-brutal" />
       <button class="btn-primary" onclick="window.location.href='/notes/create'">New Note +</button>
@@ -130,7 +130,7 @@
       {% else %}
         <div class="insight-tag">LORE</div>
       {% endif %}
-      
+
       <h4 class="insight-title">{{note.title}}</h4>
       <p class="insight-desc">{{note.content}}</p>
       <div class="insight-date">{{note.date_created}}</div>

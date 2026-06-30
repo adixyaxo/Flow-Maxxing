@@ -1,6 +1,6 @@
-# 💀 TaskMaxxing
+# 💀 FlowMaxxing
 
-> **Stop doomscrolling. Start taskmaxxing. Gain Aura.**
+> **Stop doomscrolling. Start FlowMaxxing. Gain Aura.**
 
 A Gen Z productivity app that roasts you into becoming productive.
 
@@ -10,7 +10,7 @@ Because apparently positive affirmations weren't enough.
 
 ## ✨ What's This?
 
-TaskMaxxing is a satirical productivity app built for the generation that can spend 6 hours researching productivity systems instead of actually doing the assignment.
+FlowMaxxing is a satirical productivity app built for the generation that can spend 6 hours researching productivity systems instead of actually doing the assignment.
 
 It's a combination of:
 
@@ -20,7 +20,7 @@ It's a combination of:
 * 🤖 AI Assistant
 * 💀 Professional Hater (coming soon)
 
-Instead of guilt-tripping you with motivational quotes, TaskMaxxing simply tells you the truth.
+Instead of guilt-tripping you with motivational quotes, FlowMaxxing simply tells you the truth.
 
 > "Your assignment misses you."
 
@@ -127,7 +127,7 @@ We're here to make productivity entertaining.
 
 If Notion had a sleep-deprived younger sibling raised by Discord and TikTok comments...
 
-...that's TaskMaxxing.
+...that's FlowMaxxing.
 
 ---
 
@@ -161,7 +161,7 @@ AI
 ## 📂 Project Structure
 
 ```
-TaskMaxxing/
+FlowMaxxing/
 
 ├── app.py
 ├── templates/

@@ -2,7 +2,7 @@
 
 ## Overview
 
-TaskMaxxing follows a modular three-tier architecture.
+FlowMaxxing follows a modular three-tier architecture.
 
 ```
 Frontend (HTML, CSS, JS)
