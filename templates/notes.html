@@ -231,8 +231,8 @@
         </div>
         <div class="flex items-center gap-4">
           <div class="flex items-center gap-3 bg-white/5 pl-3 pr-1 py-1 rounded-full border border-white/5">
-            <span class="text-lg font-medium text-gray-300 hidden md:block" id="user-name">Aditya</span>
-            <div class="avatar" id="user-avatar">AD</div>
+            <span class="text-lg font-medium text-gray-300 hidden md:block" id="user-name">{{user.first_name}} {{user.last_name}}</span>
+            <div class="avatar" id="user-avatar">{{user.first_name[0]}}{{user.last_name[0]}}</div>
           </div>
         </div>
       </header>
@@ -275,106 +275,39 @@
               </div>
 
               <button
-                class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-lg flex items-center gap-2 max-w-fit shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all">
+                class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-lg flex items-center gap-2 max-w-fit shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all" onclick="window.location.href='/notes/create'">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                   stroke-linecap="round">
                   <line x1="12" y1="5" x2="12" y2="19" />
                   <line x1="5" y1="12" x2="19" y2="12" />
                 </svg>
-                Write
+                Create New
               </button>
             </div>
           </div>
 
           <!-- NOTES GRID -->
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-
+            {% for note in notes %}
             <!-- Note Card 1 -->
-            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
+            <a href="/note/{{note._id}}" class="note-card cursor-pointer group block" style="text-decoration: none;">
+              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">{{note.title}}</h4>
               <div class="flex items-center justify-between mb-6">
-                <span
-                  class="mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 px-2 py-1 rounded">LORE</span>
-                <span class="text-lg text-gray-300 font-mono">Oct 24</span>
+                <span class="text-lg text-gray-300 font-mono">{{note.date_created}}</span>
               </div>
-              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Corporate Fan Fiction</h4>
+              <div class="flex items-center justify-between mb-6">
+                {% for tag in note.tags %}
+                  <span
+                  class="mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 px-2 py-1 rounded">{{tag}}</span>
+                {% endfor %}
+              </div>
               <div class="note-content-preview flex-1">
                 <p class="text-lg text-gray-300 leading-relaxed">
-                  Me pretending to know what the Q3 revenue metrics mean during the all-hands. Very demure, very mindful. 
-                  The cyan accent (#2ED2E5) should only be used for hover states because I said so.
+                  {{note.content}}
                 </p>
               </div>
             </a>
-
-            <!-- Note Card 2 -->
-            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
-              <div class="flex items-center justify-between mb-6">
-                <span class="mono-tag text-[10px] text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded">PANIC</span>
-                <span class="text-lg text-gray-300 font-mono">Oct 22</span>
-              </div>
-              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Academic Jump Scares</h4>
-              <div class="note-content-preview flex-1">
-                <p class="text-lg text-gray-300 leading-relaxed font-mono">
-                  > Discussed syllabus structure<br>
-                  > priority field maps: 0(not reading) 1(skimming) 2(crying)<br>
-                  > Add rate limiting to my tears<br>
-                  <br>
-                  Next steps: I need to write the essay that is due in 3 hours.
-                </p>
-              </div>
-            </a>
-
-            <!-- Note Card 3 -->
-            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
-              <div class="flex items-center justify-between mb-6">
-                <span class="mono-tag text-[10px] text-pink-400 bg-pink-400/10 px-2 py-1 rounded">YAP</span>
-                <span class="text-lg text-gray-300 font-mono">Oct 20</span>
-              </div>
-              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">
-                Random Shower Thoughts</h4>
-              <div class="note-content-preview flex-1">
-                <p class="text-lg text-gray-300 leading-relaxed">
-                  If you really think about it, sleep is just a free trial of death but with ads (dreams).
-                  Using CSS variables for mouse X/Y could make the glow follow the cursor dynamically.
-                </p>
-              </div>
-            </a>
-
-            <!-- Note Card 4 -->
-            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
-              <div class="flex items-center justify-between mb-6">
-                <span class="mono-tag text-[10px] text-green-400 bg-green-400/10 px-2 py-1 rounded">SNIPPET</span>
-                <span class="text-lg text-gray-300 font-mono">Oct 18</span>
-              </div>
-              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Auth
-                Middleware Fix</h4>
-              <div class="note-content-preview flex-1">
-                <div class="bg-black/50 p-3 rounded-lg border border-white/5 overflow-hidden">
-                  <pre class="text-lg text-gray-300 font-mono"><code>const auth = (req, res, next) => {
-  const token = req.header('x-auth');
-  if(!token) return res.status(401);
-  // ...
-}</code></pre>
-                </div>
-              </div>
-            </a>
-
-            <!-- Note Card 5 -->
-            <a href="/note_detail.html" class="note-card cursor-pointer group block" style="text-decoration: none;">
-              <div class="flex items-center justify-between mb-6">
-                <span class="mono-tag text-[10px] text-purple-400 bg-purple-400/10 px-2 py-1 rounded">PLANNING</span>
-                <span class="text-lg text-gray-300 font-mono">Oct 15</span>
-              </div>
-              <h4 class="text-xl text-white font-bold mb-3 group-hover:text-effortel-accent transition-colors">Q4 OKRs
-              </h4>
-              <div class="note-content-preview flex-1">
-                <p class="text-lg text-gray-300 leading-relaxed">
-                  1. Launch V2 of Flow Maxxing with new aesthetic.<br>
-                  2. Hit 10k monthly active users.<br>
-                  3. Reduce latency on notes query by 50%.
-                </p>
-              </div>
-            </a>
-
+            {% endfor %}
           </div>
 
         </div>

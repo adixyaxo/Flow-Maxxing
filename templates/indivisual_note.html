@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Corporate Fan Fiction — Flow Maxxing{% endblock %}
+
+{% block styles %}
+.editor-container {
+background: transparent;
+outline: none;
+resize: none;
+width: 100%;
+min-height: 50vh;
+font-size: 1.125rem;
+line-height: 1.8;
+color: #e2e8f0;
+}
+
+.editor-title {
+background: transparent;
+outline: none;
+width: 100%;
+color: #ffffff;
+}
+
+.editor-title::placeholder {
+color: #475569;
+}
+
+.editor-container::placeholder {
+color: #475569;
+}
+
+.status-indicator {
+transition: all 0.3s;
+}
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+{% block mobile_menu %}{% endblock %}
+
+{% block topbar %}
+<header class="topbar h-16 flex items-center justify-between px-8 flex-shrink-0 relative z-20">
+  <div class="flex items-center gap-4">
+    <a href="/notes"
+      class="text-gray-400 hover:text-white transition-colors flex items-center justify-center p-2 rounded-full hover:bg-white/5">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </a>
+    <div class="w-1 h-1 rounded-full bg-gray-500 hidden md:block"></div>
+    {% for tag in note.tags %}
+    <span class="mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 px-2 py-1 rounded">{{tag}}</span>
+    {% endfor %}
+  </div>
+
+  <div class="flex items-center gap-4">
+    <span id="save-status" class="status-indicator text-sm text-gray-500 font-mono ml-4">Saved</span>
+    <button class="text-gray-400 hover:text-red-400 transition-colors p-2 rounded-full hover:bg-red-400/10">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 6h18"></path>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+      </svg>
+    </button>
+    <button
+      class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-sm shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all">
+      Share
+    </button>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div
+  class="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-effortel-accent/5 rounded-full blur-[150px] pointer-events-none z-0">
+</div>
+
+<main class="flex-1 overflow-y-auto p-8 relative z-10">
+  <div class="max-w-3xl mx-auto space-y-6 pt-10 pb-32">
+
+    <!-- Title Editor -->
+    <input type="text" class="editor-title text-4xl md:text-5xl font-bold tracking-tight mb-2" value="{{note.title}}"
+      placeholder="Note Title...">
+
+    <div class="flex items-center gap-3 text-sm text-gray-500 font-mono mb-8 border-b border-white/5 pb-6">
+      <span>{{note.date_created}}</span>
+      <span>·</span>
+      <span>43 Words</span>
+    </div>
+
+    <!-- Content Editor -->
+    <textarea class="editor-container" placeholder="Start your brain dump here..."
+      oninput="autoSave()">{{note.content}}</textarea>
+
+  </div>
+</main>
+
+<script>
+  // Mock auto-save functionality for the frontend presentation
+  let saveTimeout;
+  const statusEl = document.getElementById('save-status');
+
+  function autoSave() {
+    statusEl.textContent = 'Editing...';
+    statusEl.classList.add('text-yellow-500');
+    statusEl.classList.remove('text-gray-500', 'text-effortel-accent');
+
+    clearTimeout(saveTimeout);
+
+    saveTimeout = setTimeout(() => {
+      statusEl.textContent = 'Saving...';
+      statusEl.classList.remove('text-yellow-500');
+      statusEl.classList.add('text-gray-500');
+
+      setTimeout(() => {
+        statusEl.textContent = 'Saved';
+        statusEl.classList.remove('text-gray-500');
+        statusEl.classList.add('text-effortel-accent');
+
+        setTimeout(() => {
+          statusEl.classList.remove('text-effortel-accent');
+          statusEl.classList.add('text-gray-500');
+        }, 2000);
+      }, 800);
+    }, 1000);
+  }
+</script>
+{% endblock %}

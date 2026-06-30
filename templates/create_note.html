@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+
+{% block title %}New Brain Dump — Flow Maxxing{% endblock %}
+
+{% block styles %}
+.editor-container {
+background: transparent;
+outline: none;
+resize: none;
+width: 100%;
+min-height: 50vh;
+font-size: 1.125rem;
+line-height: 1.8;
+color: #e2e8f0;
+}
+
+.editor-title {
+background: transparent;
+outline: none;
+width: 100%;
+color: #ffffff;
+}
+
+.editor-title::placeholder {
+color: #475569;
+}
+
+.editor-container::placeholder {
+color: #475569;
+}
+
+.status-indicator {
+transition: all 0.3s;
+}
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+{% block mobile_menu %}{% endblock %}
+
+{% block topbar %}
+<header class="topbar h-16 flex items-center justify-between px-8 flex-shrink-0 relative z-20">
+  <div class="flex items-center gap-4">
+    <a href="/notes"
+      class="text-gray-400 hover:text-white transition-colors flex items-center justify-center p-2 rounded-full hover:bg-white/5">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+    </a>
+    <div class="w-1 h-1 rounded-full bg-gray-500 hidden md:block"></div>
+    <span class="mono-tag text-[10px] text-gray-300 bg-white/5 px-2 py-1 rounded">DRAFT</span>
+  </div>
+
+  <div class="flex items-center gap-4">
+    <button onclick="submitNewNote()"
+      class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-sm shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all flex items-center gap-2">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+        <polyline points="7 3 7 8 15 8"></polyline>
+      </svg>
+      Save Note
+    </button>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div
+  class="absolute top-1/4 right-1/4 w-[500px] h-[500px] bg-effortel-accent/5 rounded-full blur-[150px] pointer-events-none z-0">
+</div>
+
+<main class="flex-1 overflow-y-auto p-8 relative z-10">
+  <form action="/notes/create" method="POST" id="create-note-form">
+    <div class="max-w-3xl mx-auto space-y-6 pt-10 pb-32">
+
+      <!-- Title Editor -->
+      <input type="text" name="title" id="note-title"
+        class="editor-title text-4xl md:text-5xl font-bold tracking-tight mb-2" placeholder="Note Title..." required>
+
+      <div class="flex items-center gap-3 text-sm text-gray-500 font-mono mb-8 border-b border-white/5 pb-6">
+        <span>Today</span>
+        <span>·</span>
+        <span id="word-count">0 Words</span>
+      </div>
+
+      <!-- Content Editor -->
+      <textarea name="content" id="note-content" class="editor-container" placeholder="Start your brain dump here..."
+        oninput="updateWordCount()" required></textarea>
+
+    </div>
+  </form>
+</main>
+
+<script>
+  function updateWordCount() {
+    const text = document.getElementById('note-content').value;
+    const count = text.trim().split(/\s+/).filter(word => word.length > 0).length;
+    document.getElementById('word-count').textContent = count + ' Words';
+  }
+
+  function submitNewNote() {
+    const title = document.getElementById('note-title').value;
+    const content = document.getElementById('note-content').value;
+
+    if (!title || !content) {
+      alert("Please enter a title and content for your brain dump!");
+      return;
+    }
+
+    document.getElementById('create-note-form').submit();
+  }
+</script>
+{% endblock %}

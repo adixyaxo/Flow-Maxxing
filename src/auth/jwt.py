@@ -35,9 +35,8 @@ async def verify_token(request:Request):
         JWT_KEY,
         algorithms=[JWT_ALGO]
     )
-    user_id = payload["_id"]
     user = conn.users.find_one({
-      "_id": ObjectId(user_id)
+      "_id": ObjectId(payload["_id"])
     })
     if user is None:
             raise HTTPException(

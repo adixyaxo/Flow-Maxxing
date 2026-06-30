@@ -1,417 +1,221 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% set active_page = "tasks" %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Main Quests — Flow Maxxing</title>
-  <script src="/static/js/script.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['Space Mono', 'monospace']
-          },
-          colors: {
-            'effortel-dark-bg': '#0F1317',
-            'effortel-dark-surface': '#1B2026',
-            'effortel-light-bg': '#D1DCE2',
-            'effortel-light-surface': '#A9BAC4',
-            'effortel-accent': '#2ED2E5',
-            'effortel-accent-hover': '#1BB8C8',
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    body {
-      background: var(--effortel-dark-bg);
-      color: #fff;
-    }
+{% block title %}Main Quests — Flow Maxxing{% endblock %}
 
-    .sidebar {
-      background: var(--effortel-dark-bg);
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-    }
+{% block styles %}
+.task-group-header {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 16px;
+margin-top: 32px;
+}
 
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 0.875rem;
-      color: #888;
-      transition: all 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: 500;
-    }
+.task-group-header:first-child {
+margin-top: 0;
+}
 
-    .nav-item:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.03);
-    }
+.task-group-header .line {
+flex: 1;
+height: 1px;
+background: rgba(255, 255, 255, 0.05);
+}
 
-    .nav-item.active {
-      color: var(--effortel-accent);
-      background: rgba(46, 210, 229, 0.08);
-    }
+.task-item {
+display: flex;
+align-items: start;
+gap: 16px;
+padding: 16px;
+background: rgba(0, 0, 0, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.05);
+border-radius: 16px;
+margin-bottom: 12px;
+transition: all 0.2s;
+cursor: pointer;
+}
 
-    .nav-item.active svg {
-      stroke: var(--effortel-accent);
-    }
+.task-item:hover {
+border-color: rgba(46, 210, 229, 0.3);
+transform: translateX(4px);
+background: rgba(0, 0, 0, 0.4);
+}
 
-    .task-group-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-      margin-top: 32px;
-    }
+.checkbox {
+width: 22px;
+height: 22px;
+border-radius: 6px;
+border: 1.5px solid rgba(255, 255, 255, 0.2);
+flex-shrink: 0;
+margin-top: 2px;
+cursor: pointer;
+transition: all 0.2s;
+display: flex;
+align-items: center;
+justify-content: center;
+}
 
-    .task-group-header:first-child {
-      margin-top: 0;
-    }
+.checkbox:hover {
+border-color: var(--effortel-accent);
+background: rgba(46, 210, 229, 0.1);
+}
 
-    .task-group-header .line {
-      flex: 1;
-      height: 1px;
-      background: rgba(255, 255, 255, 0.05);
-    }
+.checkbox.checked {
+background: var(--effortel-accent);
+border-color: var(--effortel-accent);
+}
 
-    .task-item {
-      display: flex;
-      align-items: start;
-      gap: 16px;
-      padding: 16px;
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      margin-bottom: 12px;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
+.badge-priority {
+font-family: 'Space Mono', monospace;
+font-size: 0.65rem;
+padding: 4px 8px;
+border-radius: 6px;
+text-transform: uppercase;
+letter-spacing: 0.05em;
+}
 
-    .task-item:hover {
-      border-color: rgba(46, 210, 229, 0.3);
-      transform: translateX(4px);
-      background: rgba(0, 0, 0, 0.4);
-    }
+.badge-high {
+background: rgba(239, 68, 68, 0.1);
+color: #f87171;
+border: 1px solid rgba(239, 68, 68, 0.2);
+}
 
-    .checkbox {
-      width: 22px;
-      height: 22px;
-      border-radius: 6px;
-      border: 1.5px solid rgba(255, 255, 255, 0.2);
-      flex-shrink: 0;
-      margin-top: 2px;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+.badge-medium {
+background: rgba(234, 179, 8, 0.1);
+color: #fbbf24;
+border: 1px solid rgba(234, 179, 8, 0.2);
+}
 
-    .checkbox:hover {
-      border-color: var(--effortel-accent);
-      background: rgba(46, 210, 229, 0.1);
-    }
+.badge-low {
+background: rgba(46, 210, 229, 0.1);
+color: var(--effortel-accent);
+border: 1px solid rgba(46, 210, 229, 0.2);
+}
+{% endblock %}
 
-    .checkbox.checked {
-      background: var(--effortel-accent);
-      border-color: var(--effortel-accent);
-    }
+{% block page_title %}MAIN QUESTS{% endblock %}
 
-    .badge-priority {
-      font-family: 'Space Mono', monospace;
-      font-size: 0.65rem;
-      padding: 4px 8px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
+{% block content %}
+<div
+  class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-effortel-accent/5 rounded-full blur-[120px] pointer-events-none z-0">
+</div>
 
-    .badge-high {
-      background: rgba(239, 68, 68, 0.1);
-      color: #f87171;
-      border: 1px solid rgba(239, 68, 68, 0.2);
-    }
+<main class="flex-1 overflow-y-auto p-8 relative z-10">
+  <div class="max-w-4xl mx-auto space-y-10">
 
-    .badge-medium {
-      background: rgba(234, 179, 8, 0.1);
-      color: #fbbf24;
-      border: 1px solid rgba(234, 179, 8, 0.2);
-    }
-
-    .badge-low {
-      background: rgba(46, 210, 229, 0.1);
-      color: var(--effortel-accent);
-      border: 1px solid rgba(46, 210, 229, 0.2);
-    }
-
-    .topbar {
-      background: rgba(15, 19, 23, 0.8);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-    }
-
-    .avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--effortel-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--effortel-dark-bg);
-      flex-shrink: 0;
-    }
-  </style>
-</head>
-
-<body class="antialiased selection:bg-effortel-accent selection:text-black">
-
-  <div class="flex h-screen overflow-hidden">
-    <!-- SIDEBAR -->
-    <aside class="sidebar w-64 flex flex-col flex-shrink-0 hidden md:flex">
-      <div class="p-6">
-        <a href="/" class="flex items-center gap-2 font-bold text-white tracking-tight">
-          <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-            <rect width="20" height="20" rx="4" fill="#2ED2E5" />
-            <path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          Flow Maxxing
-        </a>
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+      <div>
+        <h2 class="text-4xl font-bold text-white mb-2">Main Quests</h2>
+        <p class="text-gray-300">Either you're incredibly productive or incredibly delusional.</p>
       </div>
-
-      <nav class="flex-1 px-4 space-y-2 overflow-y-auto">
-        <a href="/dashboard" class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect width="7" height="9" x="3" y="3" rx="1" />
-            <rect width="7" height="5" x="14" y="3" rx="1" />
-            <rect width="7" height="9" x="14" y="12" rx="1" />
-            <rect width="7" height="5" x="3" y="16" rx="1" />
-          </svg>
-          Overview
-        </a>
-        <a href="/tasks" class="nav-item active">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20" />
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-          </svg>
-          Main Quests
-        </a>
-        <a href="/notes" class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-            <polyline points="14 2 14 8 20 8" />
-          </svg>
-          Brain Dumps
-        </a>
-
-        <div class="pt-8">
-          <p class="mono-tag text-gray-300 mb-3 px-3">[ SYSTEM ]</p>
-          <a href="/profile" class="nav-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            Profile
-          </a>
-          <a href="/settings" class="nav-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path
-                d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-              <circle cx="12" cy="12" r="3" />
-            </svg>
-            Settings
-          </a>
-        </div>
-      </nav>
-
-      <div class="p-4 border-t border-white/5">
-        <button onclick="logout()"
-          class="nav-item w-full text-left text-gray-300 hover:text-red-400 hover:bg-red-500/10 transition-colors">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg>
-          Log out
-        </button>
-      </div>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <div class="flex-1 flex flex-col overflow-hidden relative">
-      <!-- TOPBAR -->
-      <header class="topbar h-16 flex items-center justify-between px-8 flex-shrink-0 relative z-20">
-        <div class="flex items-center gap-3">
-          <button id="nav-toggle" class="md:hidden text-gray-300 hover:text-white focus:outline-none flex items-center justify-center">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-          </button>
-          <div class="hidden md:block w-2 h-2 rounded-full bg-effortel-accent animate-pulse"></div>
-          <h1 class="text-lg font-semibold mono-tag tracking-widest text-gray-300">MAIN QUESTS</h1>
-        </div>
-        <div class="flex items-center gap-4">
-          <div class="flex items-center gap-3 bg-white/5 pl-3 pr-1 py-1 rounded-full border border-white/5">
-            <span class="text-lg font-medium text-gray-300 hidden md:block" id="user-name">Aditya</span>
-            <div class="avatar" id="user-avatar">AD</div>
-          </div>
-        </div>
-      </header>
-
-      <!-- MOBILE MENU -->
-      <div id="mobile-menu" class="hidden md:hidden bg-effortel-dark-bg border-b border-white/5 absolute top-16 left-0 right-0 z-50 flex flex-col p-4 shadow-2xl">
-        <a href="/dashboard" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg> Overview</a>
-        <a href="/tasks" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> Main Quests</a>
-        <a href="/notes" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> Brain Dumps</a>
-        <div class="h-px bg-white/5 my-2"></div>
-        <a href="/profile" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Profile</a>
-        <a href="/settings" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg> Settings</a>
-        <button onclick="logout()" class="nav-item w-full text-left text-red-400 hover:bg-red-500/10 transition-colors mt-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg> Log out</button>
-      </div>
-
-      <!-- BACKGROUND GLOW -->
-      <div
-        class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-effortel-accent/5 rounded-full blur-[120px] pointer-events-none z-0">
-      </div>
-
-      <!-- SCROLL AREA -->
-      <main class="flex-1 overflow-y-auto p-8 relative z-10">
-        <div class="max-w-4xl mx-auto space-y-10">
-
-          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
-            <div>
-              <h2 class="text-4xl font-bold text-white mb-2">Main Quests</h2>
-              <p class="text-gray-300">Either you're incredibly productive or incredibly delusional.</p>
-            </div>
-            <button
-              class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-lg flex items-center gap-2 max-w-fit shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round">
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-              </svg>
-              New Task
-            </button>
-          </div>
-
-          <div>
-            <!-- TODAY -->
-            <div class="task-group-header">
-              <span class="mono-tag text-effortel-accent text-lg">[ TODAY ]</span>
-              <div class="line"></div>
-            </div>
-
-            <div class="task-item group">
-              <div class="checkbox"></div>
-              <div class="flex-1">
-                <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
-                  Pretend to become an engineer</div>
-                <div class="text-gray-300 text-lg mb-3">Integrate JWT token verification and redirect logic for the new
-                  auth endpoints. Make sure to not get cooked.</div>
-                <div class="flex items-center gap-3">
-                  <span class="badge-priority badge-high">HIGH</span>
-                  <span class="text-lg text-gray-300 font-mono">Today, 5:00 PM</span>
-                  <span
-                    class="ml-auto mono-tag text-[10px] text-gray-300 bg-white/5 px-2 py-1 rounded border border-white/10">#COOKING</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="task-item group">
-              <div class="checkbox"></div>
-              <div class="flex-1">
-                <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
-                  Touch grass for 10 minutes</div>
-                <div class="text-gray-300 text-lg mb-3">Review the latest Figma components for the bento grid cards.
-                  Ensure corner radiuses and border opacities match. Massive W.</div>
-                <div class="flex items-center gap-3">
-                  <span class="badge-priority badge-medium">MEDIUM</span>
-                  <span class="text-lg text-gray-300 font-mono">Today, 8:00 PM</span>
-                  <span
-                    class="ml-auto mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 border border-effortel-accent/20 px-2 py-1 rounded">2
-                    LORE LINKED</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- UPCOMING -->
-            <div class="task-group-header mt-10">
-              <span class="mono-tag text-gray-300 text-lg">[ UPCOMING ]</span>
-              <div class="line"></div>
-            </div>
-
-            <div class="task-item group">
-              <div class="checkbox"></div>
-              <div class="flex-1">
-                <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
-                  Review pull request #124</div>
-                <div class="flex items-center gap-3">
-                  <span class="badge-priority badge-low">LOW</span>
-                  <span class="text-lg text-gray-300 font-mono">Tomorrow, 10:00 AM</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="task-item group">
-              <div class="checkbox"></div>
-              <div class="flex-1">
-                <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
-                  Prepare slide deck for client sync</div>
-                <div class="text-gray-300 text-lg mb-3">Include metrics from the last quarter and proposed architecture
-                  for the Effortel redesign.</div>
-                <div class="flex items-center gap-3">
-                  <span class="badge-priority badge-high">HIGH</span>
-                  <span class="text-lg text-gray-300 font-mono">Friday</span>
-                  <span
-                    class="ml-auto mono-tag text-[10px] text-gray-300 bg-white/5 px-2 py-1 rounded border border-white/10">#MEETING</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- COMPLETED -->
-            <div class="task-group-header mt-10">
-              <span class="mono-tag text-gray-500 text-lg">[ COOKED ]</span>
-              <div class="line"></div>
-            </div>
-
-            <div class="task-item group opacity-50">
-              <div class="checkbox checked">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </div>
-              <div class="flex-1">
-                <div class="text-gray-300 font-medium text-lg mb-1 line-through">Draft API documentation</div>
-                <div class="flex items-center gap-3 mt-2">
-                  <span class="text-lg text-gray-300 font-mono">Completed Yesterday</span>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </main>
+      <button
+        class="btn-effortel btn-pill bg-effortel-accent text-effortel-dark-bg font-bold px-6 py-2.5 text-lg flex items-center gap-2 max-w-fit shadow-[0_0_20px_rgba(46,210,229,0.3)] hover:shadow-[0_0_30px_rgba(46,210,229,0.5)] transition-all">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round">
+          <line x1="12" y1="5" x2="12" y2="19" />
+          <line x1="5" y1="12" x2="19" y2="12" />
+        </svg>
+        New Task
+      </button>
     </div>
-  </div>
-</body>
 
-</html>
+    <div>
+      <!-- TODAY -->
+      <div class="task-group-header">
+        <span class="mono-tag text-effortel-accent text-lg">[ TODAY ]</span>
+        <div class="line"></div>
+      </div>
+
+      <div class="task-item group">
+        <div class="checkbox"></div>
+        <div class="flex-1">
+          <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
+            Pretend to become an engineer</div>
+          <div class="text-gray-300 text-lg mb-3">Integrate JWT token verification and redirect logic for the new
+            auth endpoints. Make sure to not get cooked.</div>
+          <div class="flex items-center gap-3">
+            <span class="badge-priority badge-high">HIGH</span>
+            <span class="text-lg text-gray-300 font-mono">Today, 5:00 PM</span>
+            <span
+              class="ml-auto mono-tag text-[10px] text-gray-300 bg-white/5 px-2 py-1 rounded border border-white/10">#COOKING</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-item group">
+        <div class="checkbox"></div>
+        <div class="flex-1">
+          <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
+            Touch grass for 10 minutes</div>
+          <div class="text-gray-300 text-lg mb-3">Review the latest Figma components for the bento grid cards.
+            Ensure corner radiuses and border opacities match. Massive W.</div>
+          <div class="flex items-center gap-3">
+            <span class="badge-priority badge-medium">MEDIUM</span>
+            <span class="text-lg text-gray-300 font-mono">Today, 8:00 PM</span>
+            <span
+              class="ml-auto mono-tag text-[10px] text-effortel-accent bg-effortel-accent/10 border border-effortel-accent/20 px-2 py-1 rounded">2
+              LORE LINKED</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPCOMING -->
+      <div class="task-group-header mt-10">
+        <span class="mono-tag text-gray-300 text-lg">[ UPCOMING ]</span>
+        <div class="line"></div>
+      </div>
+
+      <div class="task-item group">
+        <div class="checkbox"></div>
+        <div class="flex-1">
+          <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
+            Review pull request #124</div>
+          <div class="flex items-center gap-3">
+            <span class="badge-priority badge-low">LOW</span>
+            <span class="text-lg text-gray-300 font-mono">Tomorrow, 10:00 AM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="task-item group">
+        <div class="checkbox"></div>
+        <div class="flex-1">
+          <div class="text-white font-medium text-lg mb-2 group-hover:text-effortel-accent transition-colors">
+            Prepare slide deck for client sync</div>
+          <div class="text-gray-300 text-lg mb-3">Include metrics from the last quarter and proposed architecture
+            for the Effortel redesign.</div>
+          <div class="flex items-center gap-3">
+            <span class="badge-priority badge-high">HIGH</span>
+            <span class="text-lg text-gray-300 font-mono">Friday</span>
+            <span
+              class="ml-auto mono-tag text-[10px] text-gray-300 bg-white/5 px-2 py-1 rounded border border-white/10">#MEETING</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMPLETED -->
+      <div class="task-group-header mt-10">
+        <span class="mono-tag text-gray-500 text-lg">[ COOKED ]</span>
+        <div class="line"></div>
+      </div>
+
+      <div class="task-item group opacity-50">
+        <div class="checkbox checked">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="flex-1">
+          <div class="text-gray-300 font-medium text-lg mb-1 line-through">Draft API documentation</div>
+          <div class="flex items-center gap-3 mt-2">
+            <span class="text-lg text-gray-300 font-mono">Completed Yesterday</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+{% endblock %}

@@ -1,416 +1,210 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% set active_page = "profile" %}
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profile — Flow Maxxing</title>
-  <script src="/static/js/script.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="/static/css/style.css" />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['Space Mono', 'monospace']
-          },
-          colors: {
-            'effortel-dark-bg': '#0F1317',
-            'effortel-dark-surface': '#1B2026',
-            'effortel-light-bg': '#D1DCE2',
-            'effortel-light-surface': '#A9BAC4',
-            'effortel-accent': '#2ED2E5',
-            'effortel-accent-hover': '#1BB8C8',
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    body {
-      background: var(--effortel-dark-bg);
-      color: #fff;
-    }
+{% block title %}Profile — Flow Maxxing{% endblock %}
 
-    .sidebar {
-      background: var(--effortel-dark-bg);
-      border-right: 1px solid rgba(255, 255, 255, 0.05);
-    }
+{% block styles %}
+.input-field {
+background: rgba(0, 0, 0, 0.4);
+border: 1px solid rgba(255, 255, 255, 0.1);
+color: #fff;
+padding: 14px 16px;
+border-radius: 12px;
+font-size: 0.875rem;
+outline: none;
+transition: all 0.2s;
+width: 100%;
+}
 
-    .nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-size: 0.875rem;
-      color: #888;
-      transition: all 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: 500;
-    }
+.input-field:focus {
+border-color: var(--effortel-accent);
+background: rgba(46, 210, 229, 0.05);
+}
 
-    .nav-item:hover {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.03);
-    }
+.input-field::placeholder {
+color: #444;
+}
 
-    .nav-item.active {
-      color: var(--effortel-accent);
-      background: rgba(46, 210, 229, 0.08);
-    }
+.input-field:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+}
 
-    .nav-item.active svg {
-      stroke: var(--effortel-accent);
-    }
+.section-card {
+background: var(--effortel-dark-surface);
+border: 1px solid rgba(255, 255, 255, 0.05);
+border-radius: 24px;
+overflow: hidden;
+transition: border-color 0.3s;
+}
 
-    .topbar {
-      background: rgba(15, 19, 23, 0.8);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-    }
+.section-card-header {
+padding: 24px 32px 16px;
+border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
 
-    .input-field {
-      background: rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #fff;
-      padding: 14px 16px;
-      border-radius: 12px;
-      font-size: 0.875rem;
-      outline: none;
-      transition: all 0.2s;
-      width: 100%;
-    }
+.section-card-body {
+padding: 24px 32px 32px;
+}
 
-    .input-field:focus {
-      border-color: var(--effortel-accent);
-      background: rgba(46, 210, 229, 0.05);
-    }
+.avatar-xl {
+width: 80px;
+height: 80px;
+border-radius: 24px;
+background: var(--effortel-accent);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 2rem;
+font-weight: 700;
+color: var(--effortel-dark-bg);
+border: 4px solid rgba(46, 210, 229, 0.2);
+}
 
-    .input-field::placeholder {
-      color: #444;
-    }
+.avatar-sm {
+width: 32px;
+height: 32px;
+border-radius: 50%;
+background: var(--effortel-accent);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 0.75rem;
+font-weight: 700;
+color: var(--effortel-dark-bg);
+flex-shrink: 0;
+}
 
-    .input-field:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+.success-msg {
+background: rgba(34, 197, 94, 0.1);
+border: 1px solid rgba(34, 197, 94, 0.25);
+color: #4ade80;
+padding: 12px 16px;
+border-radius: 12px;
+font-size: 0.8rem;
+font-family: 'Space Mono', monospace;
+text-transform: uppercase;
+}
 
-    .section-card {
-      background: var(--effortel-dark-surface);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 24px;
-      overflow: hidden;
-      transition: border-color 0.3s;
-    }
+.error-msg {
+background: rgba(220, 38, 38, 0.1);
+border: 1px solid rgba(220, 38, 38, 0.3);
+color: #f87171;
+padding: 12px 16px;
+border-radius: 12px;
+font-size: 0.8rem;
+font-family: 'Space Mono', monospace;
+text-transform: uppercase;
+}
+{% endblock %}
 
-    .section-card-header {
-      padding: 24px 32px 16px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+{% block page_title %}AURA PROFILE{% endblock %}
 
-    .section-card-body {
-      padding: 24px 32px 32px;
-    }
+{% block content %}
+<div
+  class="absolute left-[-200px] top-[20%] w-[500px] h-[500px] bg-effortel-accent/5 rounded-full blur-[150px] pointer-events-none z-0">
+</div>
 
-    .avatar-xl {
-      width: 80px;
-      height: 80px;
-      border-radius: 24px;
-      background: var(--effortel-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--effortel-dark-bg);
-      border: 4px solid rgba(46, 210, 229, 0.2);
-    }
+<main class="flex-1 overflow-y-auto p-8 relative z-10">
+  <div class="max-w-3xl mx-auto space-y-10">
 
-    .avatar-sm {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--effortel-accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--effortel-dark-bg);
-      flex-shrink: 0;
-    }
+    <!-- PROFILE INFO -->
+    <div class="section-card">
+      <div class="section-card-header flex items-center justify-between">
+        <h2 class="text-xl font-bold text-white tracking-tight">Aura Settings</h2>
+      </div>
+      <div class="section-card-body">
+        <div class="flex items-center gap-6 mb-10 pb-8 border-b border-white/5">
+          <div class="avatar-xl" id="big-avatar">{% if user %}{{user.first_name[0]}}{{user.last_name[0]}}{% else %}U{% endif %}</div>
+          <div>
+            <p class="text-2xl font-bold text-white mb-2" id="display-name">{{user.first_name}} {{user.last_name}}</p>
+            <div class="flex items-center gap-3">
+              <p class="mono-tag text-gray-300 bg-white/5 px-2 py-1 rounded-md" id="display-email">{{user.email}}</p>
+              <p class="mono-tag text-gray-500" id="display-joined">{{date_joined}}</p>
+            </div>
+          </div>
+        </div>
 
-    .success-msg {
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.25);
-      color: #4ade80;
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-family: 'Space Mono', monospace;
-      text-transform: uppercase;
-    }
-
-    .error-msg {
-      background: rgba(220, 38, 38, 0.1);
-      border: 1px solid rgba(220, 38, 38, 0.3);
-      color: #f87171;
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-family: 'Space Mono', monospace;
-      text-transform: uppercase;
-    }
-  </style>
-</head>
-
-<body class="antialiased selection:bg-effortel-accent selection:text-black">
-
-  <div class="flex h-screen overflow-hidden relative">
-    <!-- Glowing background accent -->
-    <div
-      class="absolute left-[-200px] top-[20%] w-[500px] h-[500px] bg-effortel-accent/5 rounded-full blur-[150px] pointer-events-none">
+        <div class="space-y-6">
+          <div class="grid grid-cols-2 gap-5">
+            <div>
+              <label class="block text-[10px] text-gray-300 mb-2 mono-tag">FIRST NAME</label>
+              <input type="text" id="first-name" class="input-field" placeholder="{{user['first_name']}}" />
+            </div>
+            <div>
+              <label class="block text-[10px] text-gray-300 mb-2 mono-tag">LAST NAME</label>
+              <input type="text" id="last-name" class="input-field" placeholder="{{user['last_name']}}" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">EMAIL ADDRESS</label>
+            <input type="email" id="email" class="input-field" placeholder="{{user.email}}" disabled />
+            <p class="text-lg text-gray-500 mt-2 mono-tag">[ EMAIL CANNOT BE CHANGED FOR NOW ]</p>
+          </div>
+          <div id="profile-msg" class="hidden"></div>
+          <div class="flex justify-end pt-4">
+            <button onclick="saveProfile()"
+              class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-lg">SAVE CHANGES</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar w-64 flex flex-col flex-shrink-0 hidden md:flex z-20 relative">
-      <div class="p-6">
-        <a href="/" class="flex items-center gap-2 font-bold text-white tracking-tight">
-          <svg width="24" height="24" viewBox="0 0 20 20" fill="none">
-            <rect width="20" height="20" rx="4" fill="#2ED2E5" />
-            <path d="M5 10h10M5 7h6M5 13h8" stroke="#0F1317" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          Flow Maxxing
-        </a>
+    <!-- CHANGE PASSWORD -->
+    <div class="section-card">
+      <div class="section-card-header">
+        <h2 class="text-xl font-bold text-white tracking-tight">Security</h2>
       </div>
-      <nav class="flex-1 px-4 space-y-2">
-        <a href="/dashboard" class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect width="7" height="9" x="3" y="3" rx="1" />
-            <rect width="7" height="5" x="14" y="3" rx="1" />
-            <rect width="7" height="9" x="14" y="12" rx="1" />
-            <rect width="7" height="5" x="3" y="16" rx="1" />
-          </svg>
-          Overview
-        </a>
-        <a href="/tasks" class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20" />
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-          </svg>
-          Main Quests
-        </a>
-        <a href="/notes" class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-            <polyline points="14 2 14 8 20 8" />
-          </svg>
-          Brain Dumps
-        </a>
-        <div class="pt-8">
-          <p class="mono-tag text-gray-300 mb-3 px-3">[ SYSTEM ]</p>
-          <a href="/profile" class="nav-item active">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            Profile
-          </a>
+      <div class="section-card-body space-y-6">
+        <div>
+          <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CURRENT PASSWORD</label>
+          <input type="password" id="current-pw" class="input-field" placeholder="••••••••" />
         </div>
-        <a href="/settings" class="nav-item">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path
-              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-            <circle cx="12" cy="12" r="3" />
-          </svg>
-          Settings
-        </a>
-      </nav>
-      <div class="p-4 border-t border-white/5">
-        <button onclick="logout()"
-          class="nav-item w-full text-left text-gray-300 hover:text-red-400 hover:bg-red-500/10 transition-colors">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg>
-          Log out
-        </button>
+        <div class="grid grid-cols-2 gap-5">
+          <div>
+            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">NEW PASSWORD</label>
+            <input type="password" id="new-pw" class="input-field" placeholder="Min. 8 characters" />
+          </div>
+          <div>
+            <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CONFIRM NEW PASSWORD</label>
+            <input type="password" id="confirm-pw" class="input-field" placeholder="••••••••" />
+          </div>
+        </div>
+        <div id="pw-msg" class="hidden"></div>
+        <div class="flex justify-end pt-4">
+          <button onclick="changePassword()"
+            class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-lg">UPDATE PASSWORD</button>
+        </div>
       </div>
-    </aside>
-
-    <!-- MAIN -->
-    <div class="flex-1 flex flex-col overflow-hidden relative z-10">
-      <header class="topbar h-16 flex items-center justify-between px-8 flex-shrink-0 relative z-20">
-        <div class="flex items-center gap-3">
-          <button id="nav-toggle"
-            class="md:hidden text-gray-300 hover:text-white focus:outline-none flex items-center justify-center">
-            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
-          <h1 class="text-lg font-semibold mono-tag tracking-widest text-gray-300">AURA PROFILE</h1>
-        </div>
-        <div class="avatar-sm" id="user-avatar">U</div>
-      </header>
-
-      <!-- MOBILE MENU -->
-      <div id="mobile-menu"
-        class="hidden md:hidden bg-effortel-dark-bg border-b border-white/5 absolute top-16 left-0 right-0 z-50 flex flex-col p-4 shadow-2xl">
-        <a href="/dashboard" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect width="7" height="9" x="3" y="3" rx="1" />
-            <rect width="7" height="5" x="14" y="3" rx="1" />
-            <rect width="7" height="9" x="14" y="12" rx="1" />
-            <rect width="7" height="5" x="3" y="16" rx="1" />
-          </svg> Overview</a>
-        <a href="/tasks" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20" />
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-          </svg> Tasks</a>
-        <a href="/notes" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
-            <polyline points="14 2 14 8 20 8" />
-          </svg> Notes</a>
-        <div class="h-px bg-white/5 my-2"></div>
-        <a href="/profile" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
-          </svg> Profile</a>
-        <a href="/settings" class="nav-item mb-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path
-              d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
-            <circle cx="12" cy="12" r="3" />
-          </svg> Settings</a>
-        <button onclick="logout()"
-          class="nav-item w-full text-left text-red-400 hover:bg-red-500/10 transition-colors mt-2"><svg width="18"
-            height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-            <polyline points="16 17 21 12 16 7" />
-            <line x1="21" y1="12" x2="9" y2="12" />
-          </svg> Log out</button>
-      </div>
-
-      <main class="flex-1 overflow-y-auto p-8">
-        <div class="max-w-3xl mx-auto space-y-10">
-
-          <!-- PROFILE INFO -->
-          <div class="section-card">
-            <div class="section-card-header flex items-center justify-between">
-              <h2 class="text-xl font-bold text-white tracking-tight">Aura Settings</h2>
-            </div>
-            <div class="section-card-body">
-              <div class="flex items-center gap-6 mb-10 pb-8 border-b border-white/5">
-                <div class="avatar-xl" id="big-avatar">U</div>
-                <div>
-                  <p class="text-2xl font-bold text-white mb-2" id="display-name">Loading...</p>
-                  <div class="flex items-center gap-3">
-                    <p class="mono-tag text-gray-300 bg-white/5 px-2 py-1 rounded-md" id="display-email">—</p>
-                    <p class="mono-tag text-gray-500" id="display-joined">—</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="space-y-6">
-                <div class="grid grid-cols-2 gap-5">
-                  <div>
-                    <label class="block text-[10px] text-gray-300 mb-2 mono-tag">FIRST NAME</label>
-                    <input type="text" id="first-name" class="input-field" placeholder="{{first_name}}" />
-                  </div>
-                  <div>
-                    <label class="block text-[10px] text-gray-300 mb-2 mono-tag">LAST NAME</label>
-                    <input type="text" id="last-name" class="input-field" placeholder="Lovelace" />
-                  </div>
-                </div>
-                <div>
-                  <label class="block text-[10px] text-gray-300 mb-2 mono-tag">EMAIL ADDRESS</label>
-                  <input type="email" id="email" class="input-field" placeholder="you@domain.com" disabled />
-                  <p class="text-lg text-gray-500 mt-2 mono-tag">[ EMAIL CANNOT BE CHANGED ]</p>
-                </div>
-                <div id="profile-msg" class="hidden"></div>
-                <div class="flex justify-end pt-4">
-                  <button onclick="saveProfile()"
-                    class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-lg">SAVE CHANGES</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CHANGE PASSWORD -->
-          <div class="section-card">
-            <div class="section-card-header">
-              <h2 class="text-xl font-bold text-white tracking-tight">Security</h2>
-            </div>
-            <div class="section-card-body space-y-6">
-              <div>
-                <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CURRENT PASSWORD</label>
-                <input type="password" id="current-pw" class="input-field" placeholder="••••••••" />
-              </div>
-              <div class="grid grid-cols-2 gap-5">
-                <div>
-                  <label class="block text-[10px] text-gray-300 mb-2 mono-tag">NEW PASSWORD</label>
-                  <input type="password" id="new-pw" class="input-field" placeholder="Min. 8 characters" />
-                </div>
-                <div>
-                  <label class="block text-[10px] text-gray-300 mb-2 mono-tag">CONFIRM NEW PASSWORD</label>
-                  <input type="password" id="confirm-pw" class="input-field" placeholder="••••••••" />
-                </div>
-              </div>
-              <div id="pw-msg" class="hidden"></div>
-              <div class="flex justify-end pt-4">
-                <button onclick="changePassword()"
-                  class="btn-effortel btn-pill bg-white text-black font-bold px-8 py-3 text-lg">UPDATE PASSWORD</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- DANGER ZONE -->
-          <div class="section-card bg-red-950/10 border-red-500/20">
-            <div class="section-card-header border-red-500/10">
-              <h2 class="text-xl font-bold text-red-400 tracking-tight flex items-center gap-2">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round">
-                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
-                  <line x1="12" y1="9" x2="12" y2="13" />
-                  <line x1="12" y1="17" x2="12.01" y2="17" />
-                </svg>
-                Danger Zone
-              </h2>
-            </div>
-            <div class="section-card-body">
-              <div class="flex items-center justify-between gap-6">
-                <div>
-                  <p class="text-lg font-bold text-white mb-2">Rage Quit</p>
-                  <p class="text-lg text-gray-300 leading-relaxed max-w-md">This permanently destroys your account and
-                    obliterates all your main quests and lore. You will be cooked. This cannot be undone.</p>
-                </div>
-                <button onclick="deleteAccount()"
-                  class="btn-effortel btn-pill bg-red-500/10 text-red-400 font-bold px-8 py-3 text-lg border border-red-500/20 hover:bg-red-500 hover:text-black flex-shrink-0">RAGE QUIT</button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </main>
     </div>
+
+    <!-- DANGER ZONE -->
+    <div class="section-card bg-red-950/10 border-red-500/20">
+      <div class="section-card-header border-red-500/10">
+        <h2 class="text-xl font-bold text-red-400 tracking-tight flex items-center gap-2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          Danger Zone
+        </h2>
+      </div>
+      <div class="section-card-body">
+        <div class="flex items-center justify-between gap-6">
+          <div>
+            <p class="text-lg font-bold text-white mb-2">Rage Quit</p>
+            <p class="text-lg text-gray-300 leading-relaxed max-w-md">This permanently destroys your account and
+              obliterates all your main quests and lore. You will be cooked. This cannot be undone.</p>
+          </div>
+          <button onclick="deleteAccount()"
+            class="btn-effortel btn-pill bg-red-500/10 text-red-400 font-bold px-8 py-3 text-lg border border-red-500/20 hover:bg-red-500 hover:text-black flex-shrink-0">RAGE
+            QUIT</button>
+        </div>
+      </div>
+    </div>
+
   </div>
-</body>
-
-</html>
+</main>
+{% endblock %}
