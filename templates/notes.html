@@ -128,7 +128,7 @@
       {% if note.tags %}
         <div class="insight-tag">{{ note.tags[0] }}</div>
       {% else %}
-        <div class="insight-tag">LORE</div>
+        <div class="insight-tag">No Tag</div>
       {% endif %}
 
       <h4 class="insight-title">{{note.title}}</h4>
@@ -136,24 +136,6 @@
       <div class="insight-date">{{note.date_created}}</div>
     </a>
     {% else %}
-    <a href="#" class="insight-card cursor-pointer">
-      <div class="insight-tag">LORE</div>
-      <h4 class="insight-title">Corporate Fan Fiction</h4>
-      <p class="insight-desc">Me pretending to know what the Q3 revenue metrics mean during the all-hands. Very demure, very mindful.</p>
-      <div class="insight-date">Oct 24, 2026</div>
-    </a>
-    <a href="#" class="insight-card cursor-pointer">
-      <div class="insight-tag">PANIC</div>
-      <h4 class="insight-title">Academic Jump Scares</h4>
-      <p class="insight-desc">Just realized the midterm is tomorrow and I haven't even opened the syllabus. Chat, am I cooked?</p>
-      <div class="insight-date">Oct 22, 2026</div>
-    </a>
-    <a href="#" class="insight-card cursor-pointer">
-      <div class="insight-tag">YAP</div>
-      <h4 class="insight-title">Random Shower Thoughts</h4>
-      <p class="insight-desc">If you really think about it, sleep is just a free trial of death but with ads (dreams).</p>
-      <div class="insight-date">Oct 20, 2026</div>
-    </a>
     {% endfor %}
   </div>
 

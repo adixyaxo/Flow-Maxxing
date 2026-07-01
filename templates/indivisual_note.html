@@ -56,7 +56,8 @@ transition: all 0.3s;
 
   <div class="flex items-center gap-4">
     <span id="save-status" class="status-indicator text-sm text-gray-500 font-mono ml-4">Saved</span>
-    <button class="text-gray-400 hover:text-red-400 transition-colors p-2 rounded-full hover:bg-red-400/10">
+    <button onclick="delete_note()"
+      class="text-gray-400 hover:text-red-400 transition-colors p-2 rounded-full hover:bg-red-400/10">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
         stroke-linecap="round" stroke-linejoin="round">
         <path d="M3 6h18"></path>
@@ -81,17 +82,17 @@ transition: all 0.3s;
 
     <!-- Title Editor -->
     <input type="text" id="title" class="editor-title text-4xl md:text-5xl font-bold tracking-tight mb-2"
-      value="{{note.title}}" placeholder="Note Title...">
+      value="{{note.title}}" oninput="autoSave()" placeholder="Note Title...">
 
     <div class="flex items-center gap-3 text-sm text-gray-500 font-mono mb-8 border-b border-white/5 pb-6">
       <span>{{note.date_created}}</span>
       <span>·</span>
-      <span>43 Words</span>
+      <span id="word-count"></span>
     </div>
 
     <!-- Content Editor -->
     <textarea id="content" class="editor-container" placeholder="Start your brain dump here..."
-      oninput="autoSave()">{{note.content}}</textarea>
+      oninput="updateWordCount(); autoSave();">{{note.content}}</textarea>
 
   </div>
 </main>
@@ -99,6 +100,25 @@ transition: all 0.3s;
 <script>
   let saveTimeout;
   const statusEl = document.getElementById('save-status');
+
+  async function delete_note() {
+    try {
+      // 2. Fix: Add 'await' to wait for the network request
+      const response = await fetch(window.location.href, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      if (response.ok) {
+        window.location.href = "/notes";
+      }
+    }
+    catch (error) {
+      console.error('Error:', error)
+    }
+  }
 
   // Make the function async to use await inside
   async function autoSave() {
@@ -130,9 +150,6 @@ transition: all 0.3s;
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // 3. Fix: Add 'await' to parse the JSON response
-      const result = await response.json();
-      console.log('Success:', result);
 
       // Update UI on Success
       statusEl.textContent = 'Saved';
@@ -152,6 +169,17 @@ transition: all 0.3s;
       statusEl.classList.remove('text-gray-500', 'text-effortel-accent');
       statusEl.classList.add('text-red-500');
     }
+  }
+
+  function updateWordCount() {
+    const text = document.getElementById("content").value.trim();
+
+    const words = text === ""
+      ? 0
+      : text.split(/\s+/).length;
+
+    document.getElementById("word-count").textContent =
+      `${words} Word${words !== 1 ? "s" : ""}`;
   }
 
   // Example trigger (attach this to your input event listener)

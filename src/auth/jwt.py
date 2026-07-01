@@ -4,9 +4,10 @@ from src.config.environment import JWT_KEY, JWT_ALGO, JWT_EXP_TIME
 from datetime import datetime, timedelta, timezone
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-from src.config.database import conn
+from src.config.database import users_DB
 from fastapi.requests import Request
 from bson import ObjectId
+
 
 def generate_paylaod(_id:str,email:str,role:str):
   payload = {
@@ -35,7 +36,7 @@ async def verify_token(request:Request):
         JWT_KEY,
         algorithms=[JWT_ALGO]
     )
-    user = conn.users.find_one({
+    user = await users_DB.find_one({
       "_id": ObjectId(payload["_id"])
     })
     if user is None:

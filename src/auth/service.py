@@ -1,5 +1,5 @@
 from src.auth.schemas import USER_LOGIN,USER_REGISTER
-from src.config.database import conn
+from src.config.database import users_DB
 from src.config.settings import templates
 from src.config.environment import JWT_EXP_TIME
 from fastapi import Request
@@ -12,7 +12,7 @@ from datetime import datetime
 
 
 async def handle_login(user: USER_LOGIN, request: Request):
-  db_call = conn.users.find_one({
+  db_call = await users_DB.find_one({
       "email": user.email
   })
 
@@ -73,7 +73,7 @@ async def handle_signup(user:USER_REGISTER,request:Request):
   }
 
   try:
-    conn.users.insert_one(data)
+    await users_DB.insert_one(data)
   except DuplicateKeyError:
     return templates.TemplateResponse(
       name="error.html",
